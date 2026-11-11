@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>순우리말 시 공방 — 소중한 우리말 시화 아틀리에 (출처: 하모쌤)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts Fallback (고운바탕, 나눔명조, 고운돋움, 나눔손글씨 붓, 송명) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Brush+Script&family=Nanum+Myeongjo:wght@400;700;800&family=Song+Myung&display=swap" rel="stylesheet">
+
+  <!-- html2canvas CDN (고해상도 시화 작품 이미지 저장용) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            hanji: {
+              light: '#FAF7F2',
+              DEFAULT: '#F4EFE6',
+              deep: '#EAE2D3',
+              line: '#E2D9C8'
+            },
+            ink: {
+              DEFAULT: '#2C2A29',
+              muted: '#5C5752',
+              faint: '#8C857B'
+            },
+            matcha: {
+              light: '#DCE3D6',
+              DEFAULT: '#BAC5B2',
+              dark: '#6E7E65',
+              deep: '#4E5B47'
+            },
+            terracotta: {
+              light: '#E6B8A2',
+              DEFAULT: '#BC6C4C',
+              dark: '#9E5234'
+            },
+            indigo: {
+              korean: '#2B4257'
+            },
+            seal: {
+              red: '#C83E31'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       [중요] 커스텀 로컬 폰트 (@font-face) 선언 슬롯
+       직접 다운로드한 폰트 파일을 프로젝트 폴더(./fonts/ 경로 또는 동일 경로)에 넣고
+       아래 url('./fonts/파일명') 부분만 수정하면 즉시 반영됩니다.
+       파일이 아직 없을 때도 바로 작동하도록 기본 감성 웹폰트가 Fallback으로 연결되어 있습니다.
+       ========================================================================== */
+
+    /* 폰트 1: [폰트이름_1] — 예: 마포꽃섬, 고운바탕 등 서정적인 바탕체 */
+    @font-face {
+      font-family: 'CustomFont1';
+      src: url('./fonts/font1.woff2') format('woff2'),
+           url('./fonts/font1.ttf') format('truetype'),
+           local('Gowun Batang');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 폰트 2: [폰트이름_2] — 예: 나눔명조, 부크크명조 등 정갈한 명조체 */
+    @font-face {
+      font-family: 'CustomFont2';
+      src: url('./fonts/font2.woff2') format('woff2'),
+           url('./fonts/font2.ttf') format('truetype'),
+           local('Nanum Myeongjo');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 폰트 3: [폰트이름_3] — 예: 카페24 고운밤, 고운돋움 등 단정한 돋움/감성체 */
+    @font-face {
+      font-family: 'CustomFont3';
+      src: url('./fonts/font3.woff2') format('woff2'),
+           url('./fonts/font3.ttf') format('truetype'),
+           local('Gowun Dodum');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 폰트 4: [폰트이름_4] — 예: 교보손글씨, 나눔손글씨 붓 등 따뜻한 손글씨체 */
+    @font-face {
+      font-family: 'CustomFont4';
+      src: url('./fonts/font4.woff2') format('woff2'),
+           url('./fonts/font4.ttf') format('truetype'),
+           local('Nanum Brush Script');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 폰트 클래스 및 Fallback 매핑 */
+    .font-slot-1 {
+      font-family: 'CustomFont1', 'Gowun Batang', serif;
+    }
+    .font-slot-2 {
+      font-family: 'CustomFont2', 'Nanum Myeongjo', serif;
+    }
+    .font-slot-3 {
+      font-family: 'CustomFont3', 'Gowun Dodum', sans-serif;
+    }
+    .font-slot-4 {
+      font-family: 'CustomFont4', 'Nanum Brush Script', cursive;
+    }
+
+    /* 기본 UI 스타일 (모바일/태블릿 100dvh 완벽 대응) */
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      background-color: #FAF7F2;
+      color: #2C2A29;
+      font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 커스텀 스크롤바 */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F4EFE6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C9C0B1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A89E8E;
+    }
+
+    /* 감성 슬라이더 커스텀 (모바일/태블릿 터치 조작이 편하도록 썸 크기 확대) */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 5px;
+      border-radius: 999px;
+      background: #DDD5C7;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #FAF7F2;
+      border: 2.5px solid #6E7E65;
+      margin-top: -6.5px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover,
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.15);
+      background: #6E7E65;
+    }
+
+    /* 우측 스테이지 한지 질감 배경 */
+    .stage-hanji-bg {
+      background-color: #EFE9DC;
+      background-image:
+        radial-gradient(at 15% 20%, rgba(255, 252, 245, 0.7) 0px, transparent 50%),
+        radial-gradient(at 85% 80%, rgba(226, 214, 195, 0.5) 0px, transparent 50%),
+        repeating-linear-gradient(45deg, rgba(160, 140, 110, 0.025) 0px, rgba(160, 140, 110, 0.025) 1px, transparent 1px, transparent 6px),
+        repeating-linear-gradient(-45deg, rgba(140, 120, 90, 0.02) 0px, rgba(140, 120, 90, 0.02) 1px, transparent 1px, transparent 8px);
+    }
+
+    /* 시화 액자 그림자 및 프레임 */
+    .poem-frame-shadow {
+      box-shadow:
+        0 20px 45px -15px rgba(44, 42, 41, 0.18),
+        0 4px 12px -2px rgba(44, 42, 41, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+      transform-origin: center center;
+    }
+
+    /* ==========================================================================
+       시화 배경 테마 프리셋 (백지 포함 8종 + 사용자 커스텀 이미지/단색 지원)
+       ========================================================================== */
+    .theme-white {
+      background-color: #FFFFFF;
+      background-image: none;
+    }
+
+    .theme-hanji {
+      background-color: #FBF8F3;
+      background-image:
+        radial-gradient(circle at 20% 25%, rgba(244, 236, 220, 0.6) 0%, transparent 55%),
+        radial-gradient(circle at 80% 75%, rgba(238, 228, 209, 0.65) 0%, transparent 55%),
+        repeating-linear-gradient(60deg, rgba(180, 160, 130, 0.03) 0px, rgba(180, 160, 130, 0.03) 2px, transparent 2px, transparent 9px);
+    }
+
+    .theme-watercolor {
+      background-color: #FCF9F5;
+      background-image:
+        radial-gradient(circle at 15% 85%, rgba(232, 165, 135, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 85% 20%, rgba(186, 197, 178, 0.28) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(247, 237, 222, 0.5) 0%, transparent 70%);
+    }
+
+    .theme-starlight {
+      background: linear-gradient(180deg, #1B263B 0%, #2B3E58 55%, #415A77 100%);
+      position: relative;
+    }
+    .theme-starlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1.5px 1.5px at 20% 18%, rgba(255,255,255,0.85) 50%, transparent 100%),
+        radial-gradient(1px 1px at 68% 12%, rgba(255,248,220,0.75) 50%, transparent 100%),
+        radial-gradient(2px 2px at 82% 28%, rgba(255,255,255,0.65) 50%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 35% 42%, rgba(255,255,255,0.5) 50%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 14% 62%, rgba(255,245,210,0.6) 50%, transparent 100%),
+        radial-gradient(1px 1px at 75% 68%, rgba(255,255,255,0.55) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .theme-sunset {
+      background: linear-gradient(180deg, #FBF2E6 0%, #F7DFC6 48%, #EBC3A4 82%, #D9A78A 100%);
+    }
+
+    .theme-manuscript {
+      background-color: #F8F3E6;
+      background-image:
+        linear-gradient(to right, rgba(188, 108, 76, 0.16) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(188, 108, 76, 0.16) 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-position: center center;
+    }
+
+    .theme-matcha {
+      background: linear-gradient(165deg, #F4F6F0 0%, #E6ECE0 55%, #D5DFCE 100%);
+    }
+
+    /* 세로쓰기 모드 지원 */
+    .writing-vertical {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      letter-spacing: 0.08em;
+    }
+
+    /* 전통 전각 낙관(도장) 스타일 */
+    .seal-stamp-square {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: rgba(196, 54, 42, 0.9);
+      color: #FAF7F2;
+      border: 2px solid #B52B1E;
+      border-radius: 4px;
+      font-family: 'Song Myung', 'Nanum Myeongjo', serif;
+      font-size: 10px;
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      box-shadow: inset 0 0 0 1px rgba(255, 240, 235, 0.35);
+      transform: rotate(-2deg);
+      writing-mode: horizontal-tb !important;
+      text-align: center;
+      padding: 1px;
+      box-sizing: border-box;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .seal-stamp-circle {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: transparent;
+      color: #C4362A;
+      border: 2.2px solid #C4362A;
+      border-radius: 9999px;
+      font-family: 'Song Myung', 'Nanum Myeongjo', serif;
+      font-size: 9px;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      box-shadow: inset 0 0 0 1px rgba(196, 54, 42, 0.25);
+      transform: rotate(3deg);
+      writing-mode: horizontal-tb !important;
+      text-align: center;
+      padding: 2px;
+      box-sizing: border-box;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* 텍스트 드래그 핸들 효과 */
+    .draggable-poem-box {
+      cursor: grab;
+      border: 1.5px dashed transparent;
+      border-radius: 8px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .draggable-poem-box:hover,
+    .draggable-poem-box.dragging {
+      border-color: rgba(140, 133, 123, 0.45);
+      background-color: rgba(250, 247, 242, 0.15);
+    }
+    .draggable-poem-box:active {
+      cursor: grabbing;
+    }
+
+    /* 캡처 중일 때 모든 가이드선 숨김 */
+    .capturing-clean .draggable-poem-box {
+      border-color: transparent !important;
+      background-color: transparent !important;
+    }
+    .capturing-clean .drag-hint-pill {
+      display: none !important;
+    }
+
+    /* 반짝이는 배지 애니메이션 */
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    .badge-used {
+      animation: gentlePulse 1.8s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="w-screen flex flex-col bg-hanji-light text-ink select-none">
+
+  <!-- ========================================================================
+       상단 헤더 바 (출처: 하모쌤 배지 포함 + 모바일/태블릿 반응형 최적화)
+       ======================================================================== -->
+  <header class="h-13 sm:h-14 bg-[#BAC5B2] border-b border-[#A8B49F] px-2.5 sm:px-4 py-1.5 flex items-center justify-between shrink-0 z-30">
+    <!-- 좌측: 깃펜 로고 & 타이틀 & 출처: 하모쌤 -->
+    <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hanji-light/90 flex items-center justify-center shadow-sm border border-white/60 shrink-0">
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 text-terracotta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+          <line x1="16" y1="8" x2="2" y2="22"></line>
+          <line x1="17.5" y1="15" x2="9" y2="15"></line>
+        </svg>
+      </div>
+      <div class="min-w-0">
+        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+          <h1 class="text-sm sm:text-base md:text-lg font-bold tracking-tight text-[#2C2A29] truncate">순우리말 시 공방</h1>
+          <span class="hidden md:inline-block text-[11px] px-2 py-0.5 rounded-full bg-hanji-light/75 text-[#4E5B47] font-medium">
+            6학년 국어 · 소중한 우리말
+          </span>
+          <!-- 출처: 하모쌤 배지 -->
+          <span class="text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full bg-[#2C2A29]/80 text-[#FAF7F2] font-semibold tracking-tight shrink-0">
+            출처: 하모쌤
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 중앙: 현재 담긴 나의 글감 바구니 실시간 상태 표시 (데스크톱) -->
+    <div class="hidden xl:flex items-center gap-2 bg-hanji-light/65 px-3.5 py-1.5 rounded-full border border-white/50 max-w-md overflow-x-auto">
+      <span class="text-xs font-semibold text-[#4E5B47] flex items-center gap-1 shrink-0">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-terracotta"></i>
+        나의 글감 바구니:
+      </span>
+      <div id="headerBasketBadges" class="flex items-center gap-1.5 shrink-0">
+        <!-- JS 렌더링 -->
+      </div>
+    </div>
+
+    <!-- 우측: 모바일/태블릿 뷰 전환 버튼 & Undo/Redo & 저장하기 -->
+    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <!-- 모바일/태블릿 전용: [캔버스 크게 보기] 토글 버튼 -->
+      <button id="mobileFocusCanvasBtn" type="button" class="lg:hidden px-2.5 py-1.5 rounded-md bg-[#4E5B47] text-white text-xs font-bold shadow-sm flex items-center gap-1 transition-all">
+        <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+        <span id="mobileFocusBtnLabel">캔버스 크게</span>
+      </button>
+
+      <div class="flex items-center bg-hanji-light/50 rounded-lg p-0.5 border border-white/40">
+        <button id="headerUndoBtn" title="내 그림 실행 취소 (Ctrl+Z)" class="p-1.5 rounded-md hover:bg-hanji-light text-ink/80 hover:text-ink transition-all duration-300 ease-in-out">
+          <i data-lucide="undo-2" class="w-4 h-4"></i>
+        </button>
+        <div class="w-[1px] h-4 bg-ink/15"></div>
+        <button id="headerRedoBtn" title="내 그림 다시 실행 (Ctrl+Y)" class="p-1.5 rounded-md hover:bg-hanji-light text-ink/80 hover:text-ink transition-all duration-300 ease-in-out">
+          <i data-lucide="redo-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <button id="sampleArtworkBtn" class="hidden sm:flex px-2.5 py-1.5 rounded-md bg-hanji-light hover:bg-white text-xs font-medium text-ink shadow-sm border border-hanji-line transition-all duration-300 ease-in-out items-center gap-1">
+        <i data-lucide="wand-2" class="w-3.5 h-3.5 text-terracotta"></i>
+        <span class="hidden md:inline">가로/세로 구도</span>
+      </button>
+
+      <button id="exportPngBtn" class="px-2.5 sm:px-3.5 py-1.5 rounded-md bg-terracotta hover:bg-terracotta-dark text-white text-xs sm:text-sm font-semibold shadow-sm transition-all duration-300 ease-in-out flex items-center gap-1">
+        <i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+        <span>저장하기</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       메인 워크스페이스 (PC/태블릿 가로: 좌우 분할 | 모바일/태블릿 세로: 상하 분할 및 전체화면 전환 지원)
+       ======================================================================== -->
+  <div id="mainWorkspace" class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+
+    <!-- 1) 좌측 사이드 아이콘 레일 (PC 전용 세로 레일) -->
+    <aside class="hidden lg:flex lg:w-16 bg-hanji-light border-r border-hanji-line flex-col items-center justify-between py-4 shrink-0 z-20">
+      <div class="flex flex-col items-center gap-2 w-full">
+        <button data-tab="tab-words" class="side-tab-btn group relative w-11 h-11 rounded-xl flex flex-col items-center justify-center transition-all duration-300 ease-in-out" title="1탭: 고유어 보석함">
+          <span class="tab-indicator absolute left-0 top-2 bottom-2 w-1 bg-terracotta rounded-r-full opacity-0 transition-all duration-300"></span>
+          <i data-lucide="gem" class="w-5 h-5"></i>
+          <span class="text-[10px] mt-0.5 font-semibold">보석함</span>
+        </button>
+
+        <button data-tab="tab-desk" class="side-tab-btn group relative w-11 h-11 rounded-xl flex flex-col items-center justify-center transition-all duration-300 ease-in-out" title="2탭: 시인의 책상">
+          <span class="tab-indicator absolute left-0 top-2 bottom-2 w-1 bg-terracotta rounded-r-full opacity-0 transition-all duration-300"></span>
+          <i data-lucide="feather" class="w-5 h-5"></i>
+          <span class="text-[10px] mt-0.5 font-semibold">책상</span>
+        </button>
+
+        <button data-tab="tab-studio" class="side-tab-btn group relative w-11 h-11 rounded-xl flex flex-col items-center justify-center transition-all duration-300 ease-in-out" title="3탭: 타이포그래피 & 시화 도구함">
+          <span class="tab-indicator absolute left-0 top-2 bottom-2 w-1 bg-terracotta rounded-r-full opacity-0 transition-all duration-300"></span>
+          <span class="text-sm font-bold leading-none">Aa</span>
+          <span class="text-[10px] mt-1 font-semibold">시화도구</span>
+        </button>
+
+        <button data-tab="tab-all" class="side-tab-btn group relative w-11 h-11 rounded-xl flex flex-col items-center justify-center transition-all duration-300 ease-in-out" title="한눈에 보는 통합 공방 뷰">
+          <span class="tab-indicator absolute left-0 top-2 bottom-2 w-1 bg-terracotta rounded-r-full opacity-0 transition-all duration-300"></span>
+          <i data-lucide="layout-grid" class="w-5 h-5"></i>
+          <span class="text-[10px] mt-0.5 font-semibold">통합뷰</span>
+        </button>
+      </div>
+
+      <!-- 하단 초기화 아이콘 및 출처 -->
+      <div class="flex flex-col items-center gap-2">
+        <button id="resetAllBtn" title="처음부터 새로 만들기" class="w-10 h-10 rounded-xl flex items-center justify-center text-ink-muted hover:text-terracotta hover:bg-hanji-deep/60 transition-all duration-300 ease-in-out">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        </button>
+        <span class="text-[9px] text-ink-faint font-semibold text-center leading-tight">하모쌤</span>
+      </div>
+    </aside>
+
+    <!-- 2) 좌측(모바일은 상단/하단 전환 가능) 스튜디오 컨트롤 패널 -->
+    <section id="leftControlPanel" class="w-full lg:w-[440px] xl:w-[480px] bg-hanji-light border-b lg:border-b-0 lg:border-r border-hanji-line flex flex-col h-[44%] sm:h-[46%] lg:h-full shrink-0 overflow-hidden transition-all duration-300">
+
+      <!-- 상단 탭 네비게이션 바 (모바일/태블릿에서도 터치하기 쉬운 4버튼 구성) -->
+      <div class="px-3 sm:px-5 pt-2.5 pb-2 border-b border-hanji-line bg-hanji/60 flex items-center gap-1 shrink-0">
+        <button data-tab="tab-words" class="top-tab-pill flex-1 py-1.5 sm:py-2 px-1.5 rounded-lg text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 transition-all duration-300 ease-in-out">
+          <span>① 보석함</span>
+          <span id="basketCountPill" class="px-1.5 py-0.2 rounded-full text-[10px] bg-terracotta text-white">5</span>
+        </button>
+        <button data-tab="tab-desk" class="top-tab-pill flex-1 py-1.5 sm:py-2 px-1.5 rounded-lg text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 transition-all duration-300 ease-in-out">
+          <span>② 시인의 책상</span>
+        </button>
+        <button data-tab="tab-studio" class="top-tab-pill flex-1 py-1.5 sm:py-2 px-1.5 rounded-lg text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 transition-all duration-300 ease-in-out">
+          <span>③ 서체·도구</span>
+        </button>
+        <button data-tab="tab-all" class="top-tab-pill py-1.5 sm:py-2 px-2 rounded-lg text-[11px] sm:text-xs font-bold flex items-center justify-center transition-all duration-300 ease-in-out" title="통합 보기">
+          <span>전체</span>
+        </button>
+      </div>
+
+      <!-- 스크롤 가능한 탭 컨텐츠 컨테이너 -->
+      <div id="leftPanelScroll" class="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-6 select-text">
+
+        <!-- ==================================================================
+             [1탭: 고유어 보석함 (개수 제한 없이 자유롭게 선택 가능)]
+             ================================================================== -->
+        <div id="section-words" class="tab-section space-y-4">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                <span>고유어 보석함</span>
+                <span class="text-[11px] font-normal text-matcha-deep bg-matcha-light/70 px-2 py-0.5 rounded-full">자유 선택</span>
+              </h2>
+              <p class="text-xs text-ink-muted mt-0.5">
+                개수 제한 없이 마음에 드는 순우리말 보석을 원하는 만큼 자유롭게 담아 보세요.
+              </p>
+            </div>
+            <select id="wordFilterSelect" class="text-xs bg-white border border-hanji-line rounded-lg px-2.5 py-1.5 text-ink focus:outline-none focus:border-matcha-dark shrink-0">
+              <option value="전체">전체 (20)</option>
+              <option value="명사">명사</option>
+              <option value="부사">부사</option>
+              <option value="형용사">형용사</option>
+            </select>
+          </div>
+
+          <!-- 나의 글감 바구니 요약 박스 -->
+          <div class="p-3 rounded-xl bg-hanji border border-hanji-line/90 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-matcha-deep flex items-center gap-1.5">
+                <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-terracotta"></i>
+                나의 글감 바구니 (<span id="basketCountText">5</span>개 선택됨)
+              </span>
+              <div class="flex items-center gap-2">
+                <button id="selectAllWordsBtn" class="text-[11px] font-semibold text-matcha-deep hover:text-terracotta transition-all duration-300">
+                  전체 담기
+                </button>
+                <span class="text-hanji-line">|</span>
+                <button id="clearBasketBtn" class="text-[11px] text-ink-faint hover:text-terracotta transition-all duration-300">
+                  비우기
+                </button>
+              </div>
+            </div>
+            <div id="selectedWordsContainer" class="flex flex-wrap gap-1.5 min-h-[28px] items-center"></div>
+          </div>
+
+          <!-- 선택된 단어 상세 뜻 & 시적 예문 프리뷰 카드 -->
+          <div id="wordDetailSpotlight" class="p-3.5 rounded-xl bg-white/90 border border-matcha/60 shadow-sm space-y-1 transition-all duration-300 ease-in-out">
+            <div class="flex items-center justify-between">
+              <div class="flex items-baseline gap-2">
+                <span id="spotlightWord" class="text-base sm:text-lg font-bold text-ink">윤슬</span>
+                <span id="spotlightPos" class="text-[11px] px-2 py-0.5 rounded-full bg-matcha-light text-matcha-deep font-semibold">명사</span>
+              </div>
+              <span class="text-[11px] text-ink-faint">단어 카드를 눌러보세요</span>
+            </div>
+            <p id="spotlightMeaning" class="text-xs text-ink-muted leading-relaxed">
+              햇빛이나 달빛에 비치어 반짝이는 잔물결.
+            </p>
+            <p id="spotlightExample" class="text-xs italic text-terracotta-dark bg-hanji-light px-3 py-1.5 rounded-lg border border-hanji-line/60 mt-1">
+              “강물 위에 부서지는 금빛 윤슬을 보며 너의 웃음을 떠올렸어.”
+            </p>
+          </div>
+
+          <!-- 단어 카드 그리드 (20선) -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-ink-muted">순우리말 단어 카드 (20선)</span>
+              <span class="text-[11px] text-ink-faint">터치하여 자유롭게 담기/빼기</span>
+            </div>
+            <div id="wordCardsGrid" class="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-4 gap-2"></div>
+          </div>
+
+          <div class="pt-1">
+            <button data-goto="tab-desk" class="w-full py-2.5 rounded-xl bg-matcha hover:bg-[#A7B59E] text-ink font-bold text-xs shadow-sm transition-all duration-300 ease-in-out flex items-center justify-center gap-1.5">
+              <span>글감 고르기 완료 · 시인의 책상으로 이동</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             [2탭: 시인의 책상 (글쓰기 에디터)]
+             ================================================================== -->
+        <div id="section-desk" class="tab-section space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-base sm:text-lg font-bold text-ink">시인의 책상</h2>
+              <p class="text-xs text-ink-muted mt-0.5">
+                고른 순우리말을 시 속에 자연스럽게 녹여 나만의 시를 지어 보세요.
+              </p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button id="clearPoemTextBtn" title="시 제목과 본문 글씨만 깨끗하게 지웁니다" class="text-xs px-2.5 py-1.5 rounded-lg bg-white hover:bg-red-50 text-ink-muted hover:text-seal-red border border-hanji-line transition-all duration-300 flex items-center gap-1">
+                <i data-lucide="eraser" class="w-3.5 h-3.5"></i>
+                <span>글씨 지우기</span>
+              </button>
+              <button id="inspirePoemBtn" class="text-xs px-2.5 py-1.5 rounded-lg bg-hanji hover:bg-hanji-deep text-ink-muted hover:text-ink border border-hanji-line transition-all duration-300 flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-terracotta"></i>
+                <span>시문 영감</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 목표 고유어 사용 감지 배지 바 -->
+          <div class="p-3 rounded-xl bg-white/80 border border-hanji-line space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-ink flex items-center gap-1.5">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-matcha-dark"></i>
+                목표 고유어 사용 감지
+              </span>
+              <span id="wordDetectSummary" class="text-[11px] font-semibold text-terracotta">
+                시 본문에 단어를 넣으면 불이 켜져요!
+              </span>
+            </div>
+            <div id="deskTargetWordBadges" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <!-- 시 제목 입력 -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="poemTitleInput" class="text-xs font-bold text-ink">시 제목</label>
+              <label class="inline-flex items-center gap-1.5 text-xs text-ink-muted cursor-pointer">
+                <input type="checkbox" id="showTitleToggle" checked class="accent-[#6E7E65] rounded" />
+                <span>시화에 제목 표시</span>
+              </label>
+            </div>
+            <input
+              id="poemTitleInput"
+              type="text"
+              maxlength="30"
+              placeholder="예: 윤슬이 머무는 해거름"
+              value="윤슬이 머무는 해거름"
+              class="w-full px-3.5 py-2 rounded-xl bg-white border border-hanji-line text-sm text-ink placeholder-ink-faint focus:outline-none focus:border-matcha-dark transition-all duration-300"
+            />
+          </div>
+
+          <!-- 시 본문 입력 -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label for="poemBodyInput" class="text-xs font-bold text-ink">시 본문</label>
+              <span class="text-[11px] text-ink-faint">위 단어 배지를 누르면 본문에 바로 들어가요</span>
+            </div>
+            <textarea
+              id="poemBodyInput"
+              rows="5"
+              placeholder="고운 순우리말을 담아 시를 적어 보세요..."
+              class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hanji-line text-sm text-ink leading-relaxed placeholder-ink-faint focus:outline-none focus:border-matcha-dark transition-all duration-300 resize-none"
+            >산들바람 불어오는 강가에서
+반짝이는 윤슬을 가만히 바라본다
+시나브로 물드는 붉은 해거름에
+우리들의 다솜도 깊어만 간다</textarea>
+          </div>
+
+          <!-- 작가 이름(필명) & 전통 낙관(도장) 설정 -->
+          <div class="p-3.5 rounded-xl bg-hanji/70 border border-hanji-line space-y-2.5">
+            <div class="flex items-center justify-between">
+              <label for="poetNameInput" class="text-xs font-bold text-ink flex items-center gap-1.5">
+                <span>작가 이름 (필명) & 전통 낙관(印)</span>
+              </label>
+              <label class="inline-flex items-center gap-1.5 text-xs font-semibold text-seal-red cursor-pointer">
+                <input type="checkbox" id="showSealToggle" checked class="accent-[#C83E31] rounded" />
+                <span>붉은 낙관(도장) 찍기</span>
+              </label>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input
+                id="poetNameInput"
+                type="text"
+                maxlength="12"
+                placeholder="작가 이름 (예: 김하늘)"
+                value="고운마음"
+                class="px-3 py-2 rounded-lg bg-white border border-hanji-line text-xs text-ink focus:outline-none focus:border-matcha-dark"
+              />
+              <div class="flex items-center gap-1.5">
+                <button type="button" data-seal-shape="square" class="seal-shape-btn flex-1 py-2 px-2 rounded-lg text-xs font-semibold border border-terracotta bg-terracotta/10 text-terracotta-dark transition-all duration-300">
+                  사각 인장 (印)
+                </button>
+                <button type="button" data-seal-shape="circle" class="seal-shape-btn flex-1 py-2 px-2 rounded-lg text-xs font-semibold border border-hanji-line bg-white text-ink-muted transition-all duration-300">
+                  원형 인장 (印)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             [3탭: 타이포그래피 & 캔버스 비율 & 시화 도구함]
+             ================================================================== -->
+        <div id="section-studio" class="tab-section space-y-5">
+
+          <!-- 기기 맞춤형 시화 캔버스 비율(모양) 선택기 추가! -->
+          <div class="p-3.5 rounded-xl bg-hanji/75 border border-hanji-line space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-ink flex items-center gap-1.5">
+                <i data-lucide="Ratio" class="w-4 h-4 text-terracotta hidden"></i>
+                <i data-lucide="frame" class="w-4 h-4 text-terracotta"></i>
+                시화 캔버스 비율 (기기 화면 자동 맞춤)
+              </span>
+              <span class="text-[11px] text-matcha-deep font-semibold">모바일·태블릿 완벽 대응</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" data-ratio="portrait" class="ratio-btn py-2 px-2 rounded-lg text-xs font-bold border-2 border-matcha-dark bg-white text-ink shadow-sm flex items-center justify-center gap-1.5 transition-all">
+                <span class="inline-block w-2.5 h-3.5 border border-current rounded-[1px]"></span>
+                <span>세로 엽서 (2:3)</span>
+              </button>
+              <button type="button" data-ratio="square" class="ratio-btn py-2 px-2 rounded-lg text-xs font-medium border border-hanji-line bg-white/70 text-ink-muted hover:text-ink flex items-center justify-center gap-1.5 transition-all">
+                <span class="inline-block w-3 h-3 border border-current rounded-[1px]"></span>
+                <span>정사각 카드 (1:1)</span>
+              </button>
+              <button type="button" data-ratio="landscape" class="ratio-btn py-2 px-2 rounded-lg text-xs font-medium border border-hanji-line bg-white/70 text-ink-muted hover:text-ink flex items-center justify-center gap-1.5 transition-all">
+                <span class="inline-block w-3.5 h-2.5 border border-current rounded-[1px]"></span>
+                <span>가로 화첩 (4:3)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3-A. 서체 & 타이포그래피 세부 제어 -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="text-base sm:text-lg font-bold text-ink">서체 및 조판</h2>
+              <div class="inline-flex rounded-lg bg-hanji p-0.5 border border-hanji-line">
+                <button type="button" data-direction="horizontal" class="dir-btn px-2.5 py-1 rounded-md text-xs font-bold bg-white text-ink shadow-sm transition-all duration-300">
+                  가로쓰기
+                </button>
+                <button type="button" data-direction="vertical" class="dir-btn px-2.5 py-1 rounded-md text-xs font-bold text-ink-muted hover:text-ink transition-all duration-300">
+                  세로쓰기 (전통)
+                </button>
+              </div>
+            </div>
+
+            <!-- 글씨체 선택 카드 UI -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-ink-muted">서체 선택 (로컬 @font-face 슬롯 1~4)</span>
+                <span id="activeFontBadge" class="text-[11px] text-matcha-deep font-semibold">현재: 고운바탕 (폰트1)</span>
+              </div>
+              <div id="fontCardGrid" class="grid grid-cols-2 gap-2">
+                <button type="button" data-font="font-slot-1" data-font-label="고운바탕 (폰트 1)" class="font-card-btn font-slot-1 p-2.5 rounded-xl border-2 border-matcha-dark bg-matcha-light/40 text-left transition-all duration-300 ease-in-out">
+                  <div class="text-xs font-bold text-ink flex items-center justify-between">
+                    <span>[폰트 1] 고운바탕</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-matcha text-ink">기본</span>
+                  </div>
+                  <div class="text-sm text-ink-muted mt-1 truncate">윤슬이 반짝이는 해거름</div>
+                </button>
+
+                <button type="button" data-font="font-slot-2" data-font-label="나눔명조 (폰트 2)" class="font-card-btn font-slot-2 p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji/50 text-left transition-all duration-300 ease-in-out">
+                  <div class="text-xs font-bold text-ink">[폰트 2] 정갈한 명조</div>
+                  <div class="text-sm text-ink-muted mt-1 truncate">윤슬이 반짝이는 해거름</div>
+                </button>
+
+                <button type="button" data-font="font-slot-3" data-font-label="고운돋움 (폰트 3)" class="font-card-btn font-slot-3 p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji/50 text-left transition-all duration-300 ease-in-out">
+                  <div class="text-xs font-bold text-ink">[폰트 3] 단정한 돋움</div>
+                  <div class="text-sm text-ink-muted mt-1 truncate">윤슬이 반짝이는 해거름</div>
+                </button>
+
+                <button type="button" data-font="font-slot-4" data-font-label="손글씨 붓 (폰트 4)" class="font-card-btn font-slot-4 p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji/50 text-left transition-all duration-300 ease-in-out">
+                  <div class="text-xs font-bold text-ink font-sans">[폰트 4] 감성 손글씨</div>
+                  <div class="text-base text-ink-muted mt-0.5 truncate">윤슬이 반짝이는 해거름</div>
+                </button>
+              </div>
+
+              <!-- 내 컴퓨터에서 로컬 폰트 파일(.ttf, .otf, .woff, .woff2) 즉시 불러오기 -->
+              <div class="pt-1">
+                <input type="file" id="localFontFileInput" accept=".ttf,.otf,.woff,.woff2" class="hidden" />
+                <button type="button" id="uploadLocalFontBtn" class="w-full py-2 px-3 rounded-xl border border-dashed border-matcha-dark bg-hanji/50 hover:bg-matcha-light/40 text-xs font-bold text-matcha-deep flex items-center justify-center gap-2 transition-all duration-300 ease-in-out">
+                  <i data-lucide="folder-plus" class="w-4 h-4 text-terracotta"></i>
+                  <span>[+ 기기에서 폰트 파일(.ttf, .otf, .woff) 불러오기]</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 글씨 크기 단계별 빠른 버튼 -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-ink-muted">글씨 크기 빠른 프리셋</span>
+                <span class="text-[11px] text-ink-faint">클릭 시 제목·본문 동시 조절</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5">
+                <button type="button" data-size-preset="small" class="size-preset-btn py-1.5 rounded-lg text-xs font-medium bg-white border border-hanji-line hover:bg-hanji transition-all duration-300">작게</button>
+                <button type="button" data-size-preset="normal" class="size-preset-btn py-1.5 rounded-lg text-xs font-bold bg-matcha text-ink border border-matcha-dark transition-all duration-300">보통</button>
+                <button type="button" data-size-preset="large" class="size-preset-btn py-1.5 rounded-lg text-xs font-medium bg-white border border-hanji-line hover:bg-hanji transition-all duration-300">크게</button>
+                <button type="button" data-size-preset="xlarge" class="size-preset-btn py-1.5 rounded-lg text-xs font-medium bg-white border border-hanji-line hover:bg-hanji transition-all duration-300">아주 크게</button>
+              </div>
+            </div>
+
+            <!-- 제목 크기 & 본문 크기 & 줄간격 & 자간 슬라이더 -->
+            <div class="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-white border border-hanji-line">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ink">제목 크기</span>
+                  <span id="titleSizeValue" class="font-mono text-terracotta font-bold">24px</span>
+                </div>
+                <input id="titleSizeSlider" type="range" min="20" max="48" value="24" class="w-full" />
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ink">본문 크기</span>
+                  <span id="bodySizeValue" class="font-mono text-terracotta font-bold">17px</span>
+                </div>
+                <input id="bodySizeSlider" type="range" min="14" max="32" value="17" class="w-full" />
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ink">줄간격 (여백)</span>
+                  <span id="lineHeightValue" class="font-mono text-matcha-deep font-bold">1.9</span>
+                </div>
+                <input id="lineHeightSlider" type="range" min="1.4" max="2.4" step="0.1" value="1.9" class="w-full" />
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ink">자간 (글자 간격)</span>
+                  <span id="letterSpacingValue" class="font-mono text-matcha-deep font-bold">0.02em</span>
+                </div>
+                <input id="letterSpacingSlider" type="range" min="-0.04" max="0.20" step="0.02" value="0.02" class="w-full" />
+              </div>
+            </div>
+
+            <!-- 텍스트 정렬 & 글자 색상 팔레트 -->
+            <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-xl bg-white border border-hanji-line">
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold text-ink-muted block">문단 정렬</span>
+                <div class="inline-flex rounded-lg bg-hanji p-0.5 border border-hanji-line">
+                  <button type="button" data-align="left" class="align-btn p-1.5 rounded-md text-ink-muted hover:text-ink transition-all" title="왼쪽 정렬">
+                    <i data-lucide="align-left" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" data-align="center" class="align-btn p-1.5 rounded-md bg-white text-ink shadow-sm transition-all" title="가운데 정렬">
+                    <i data-lucide="align-center" class="w-4 h-4"></i>
+                  </button>
+                  <button type="button" data-align="right" class="align-btn p-1.5 rounded-md text-ink-muted hover:text-ink transition-all" title="오른쪽 정렬">
+                    <i data-lucide="align-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold text-ink-muted block">글자 빛깔</span>
+                <div class="flex items-center gap-1.5">
+                  <button type="button" data-textcolor="#2C2A29" title="전통 먹색" class="text-color-btn w-6 h-6 rounded-full bg-[#2C2A29] ring-2 ring-offset-1 ring-terracotta transition-all"></button>
+                  <button type="button" data-textcolor="#5A3E2B" title="다갈색" class="text-color-btn w-6 h-6 rounded-full bg-[#5A3E2B] hover:scale-110 transition-all"></button>
+                  <button type="button" data-textcolor="#2B4257" title="전통 쪽빛(남색)" class="text-color-btn w-6 h-6 rounded-full bg-[#2B4257] hover:scale-110 transition-all"></button>
+                  <button type="button" data-textcolor="#3E523D" title="깊은 솔잎색" class="text-color-btn w-6 h-6 rounded-full bg-[#3E523D] hover:scale-110 transition-all"></button>
+                  <button type="button" data-textcolor="#8C3F2B" title="적갈색" class="text-color-btn w-6 h-6 rounded-full bg-[#8C3F2B] hover:scale-110 transition-all"></button>
+                  <button type="button" data-textcolor="#FAF7F2" title="고운 백색 (밤하늘용)" class="text-color-btn w-6 h-6 rounded-full bg-[#FAF7F2] border border-stone-400 hover:scale-110 transition-all"></button>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <span class="text-[11px] font-bold text-ink-muted block">시 위치</span>
+                <button type="button" id="resetTextPosBtn" class="px-2.5 py-1.5 rounded-lg bg-hanji hover:bg-hanji-deep text-xs font-semibold text-ink border border-hanji-line transition-all">
+                  위치 기본 정렬
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-hanji-line" />
+
+          <!-- 3-B. 시화 배경 테마 프리셋 (순백 도화지(백지) + 수채 물결 한지 + 나만의 배경 이미지/단색 추가) -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-ink">시화 배경 테마 (지우개로 지워지지 않음)</h3>
+              <span class="text-[11px] text-matcha-deep font-semibold">백지 및 나만의 배경 추가 가능</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <button type="button" data-theme="theme-white" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-[#FFFFFF] border border-stone-300 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">순백 도화지(백지)</span>
+              </button>
+
+              <button type="button" data-theme="theme-hanji" data-wave="true" data-dark="false" class="theme-btn p-2 rounded-xl border-2 border-matcha-dark bg-[#FBF8F3] text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-gradient-to-b from-[#FBF8F3] via-[#E8A587] to-[#BAC5B2] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">수채 물결 한지</span>
+              </button>
+
+              <button type="button" data-theme="theme-hanji" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-[#F3ECE0] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">전통 한지</span>
+              </button>
+
+              <button type="button" data-theme="theme-watercolor" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-gradient-to-tr from-[#F2D5C4] via-[#FCF9F5] to-[#D6E0CE] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">수채화지</span>
+              </button>
+
+              <button type="button" data-theme="theme-sunset" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-gradient-to-b from-[#FBF2E6] via-[#F2C9A8] to-[#D9A78A] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">노을빛</span>
+              </button>
+
+              <button type="button" data-theme="theme-starlight" data-wave="false" data-dark="true" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-gradient-to-b from-[#1B263B] to-[#415A77] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">밤하늘 별빛</span>
+              </button>
+
+              <button type="button" data-theme="theme-manuscript" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-[#F8F3E6] border border-[#BC6C4C]/40 mb-1 grid grid-cols-3">
+                  <div class="border-r border-[#BC6C4C]/30"></div>
+                  <div class="border-r border-[#BC6C4C]/30"></div>
+                  <div></div>
+                </div>
+                <span class="text-[11px] font-bold text-ink block">빈티지 원고지</span>
+              </button>
+
+              <button type="button" data-theme="theme-matcha" data-wave="false" data-dark="false" class="theme-btn p-2 rounded-xl border border-hanji-line bg-white text-center transition-all">
+                <div class="w-full h-6 rounded-md bg-gradient-to-b from-[#F4F6F0] to-[#D5DFCE] border border-stone-300/60 mb-1"></div>
+                <span class="text-[11px] font-bold text-ink block">다향 말차지</span>
+              </button>
+            </div>
+
+            <!-- 나만의 배경 직접 추가 -->
+            <div class="p-3.5 rounded-xl bg-white border border-hanji-line space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-ink flex items-center gap-1.5">
+                  <i data-lucide="image-plus" class="w-4 h-4 text-terracotta"></i>
+                  나만의 배경 직접 추가하기
+                </span>
+                <label class="flex items-center gap-1.5 text-xs text-ink-muted cursor-pointer">
+                  <span>단색 배경:</span>
+                  <input type="color" id="customBgColorPicker" value="#FAF7F2" class="w-5 h-5 rounded cursor-pointer border border-stone-300 bg-transparent" />
+                </label>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <input type="file" id="customBgImageInput" accept="image/*" class="hidden" />
+                <button type="button" id="uploadBgImageBtn" class="flex-1 py-2 px-3 rounded-xl border border-dashed border-terracotta bg-terracotta/5 hover:bg-terracotta/15 text-xs font-bold text-terracotta-dark flex items-center justify-center gap-1.5 transition-all duration-300">
+                  <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+                  <span>[+ 사진첩/기기에서 배경 그림 불러오기]</span>
+                </button>
+                <button type="button" id="removeCustomBgBtn" class="hidden py-2 px-2.5 rounded-xl border border-hanji-line bg-hanji hover:bg-red-50 text-xs font-semibold text-seal-red transition-all">
+                  배경사진 제거
+                </button>
+              </div>
+
+              <div id="customBgOpacityRow" class="hidden pt-1 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-semibold text-ink-muted">배경 사진 농도 (글씨가 잘 보이게 조절)</span>
+                  <span id="bgOpacityValue" class="font-mono text-matcha-deep font-bold">85%</span>
+                </div>
+                <input id="bgOpacitySlider" type="range" min="15" max="100" value="85" class="w-full" />
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-hanji-line" />
+
+          <!-- 3-C. 시화 드로잉 도구함 -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-bold text-ink">시화 그리기 도구</h3>
+              <span class="text-[11px] text-terracotta font-semibold">지우개는 내가 그린 그림만 지워요!</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2">
+              <button type="button" data-tool="pencil" class="draw-tool-btn p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji flex flex-col items-center gap-1 transition-all duration-300">
+                <i data-lucide="pencil" class="w-5 h-5 text-ink"></i>
+                <span class="text-[11px] font-bold">세밀 연필</span>
+              </button>
+
+              <button type="button" data-tool="watercolor" class="draw-tool-btn p-2.5 rounded-xl border-2 border-matcha-dark bg-matcha-light/60 flex flex-col items-center gap-1 transition-all duration-300">
+                <i data-lucide="paintbrush" class="w-5 h-5 text-matcha-deep"></i>
+                <span class="text-[11px] font-bold">수채화 붓</span>
+              </button>
+
+              <button type="button" data-tool="crayon" class="draw-tool-btn p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji flex flex-col items-center gap-1 transition-all duration-300">
+                <i data-lucide="pen-tool" class="w-5 h-5 text-terracotta"></i>
+                <span class="text-[11px] font-bold">크레파스</span>
+              </button>
+
+              <button type="button" data-tool="eraser" class="draw-tool-btn p-2.5 rounded-xl border border-hanji-line bg-white hover:bg-hanji flex flex-col items-center gap-1 transition-all duration-300">
+                <i data-lucide="eraser" class="w-5 h-5 text-ink-muted"></i>
+                <span class="text-[11px] font-bold">그림 지우개</span>
+              </button>
+            </div>
+
+            <!-- 브러시 색상 팔레트 -->
+            <div class="p-3.5 rounded-xl bg-white border border-hanji-line space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-ink">물감 팔레트 (수묵·파스텔 10색)</span>
+                <label class="flex items-center gap-1.5 text-xs text-ink-muted cursor-pointer">
+                  <span>직접 선택:</span>
+                  <input type="color" id="customBrushColorPicker" value="#D47A53" class="w-6 h-6 rounded cursor-pointer border-0 bg-transparent" />
+                </label>
+              </div>
+              <div id="brushColorPalette" class="flex flex-wrap items-center gap-2">
+                <button type="button" data-brushcolor="#2C2A29" title="농묵 (진한 먹색)" class="brush-color-btn w-7 h-7 rounded-full bg-[#2C2A29] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#7A756E" title="담묵 (연한 먹색)" class="brush-color-btn w-7 h-7 rounded-full bg-[#7A756E] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#D47A53" title="노을 황토/테라코타" class="brush-color-btn w-7 h-7 rounded-full bg-[#D47A53] ring-2 ring-offset-1 ring-terracotta border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#E8A587" title="살구빛 노을" class="brush-color-btn w-7 h-7 rounded-full bg-[#E8A587] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#EBC878" title="윤슬 금빛" class="brush-color-btn w-7 h-7 rounded-full bg-[#EBC878] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#8DA382" title="말차 풀빛" class="brush-color-btn w-7 h-7 rounded-full bg-[#8DA382] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#5E7B6A" title="비취 솔잎색" class="brush-color-btn w-7 h-7 rounded-full bg-[#5E7B6A] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#6A8EA8" title="쪽빛 하늘" class="brush-color-btn w-7 h-7 rounded-full bg-[#6A8EA8] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#B48E9C" title="꽃잠 연보라" class="brush-color-btn w-7 h-7 rounded-full bg-[#B48E9C] border border-white shadow-sm hover:scale-110 transition-all"></button>
+                <button type="button" data-brushcolor="#FFFFFF" title="하얀 눈/구름" class="brush-color-btn w-7 h-7 rounded-full bg-[#FFFFFF] border border-stone-300 shadow-sm hover:scale-110 transition-all"></button>
+              </div>
+
+              <div class="pt-1 space-y-1">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-bold text-ink">붓 / 지우개 굵기 조절</span>
+                  <span id="brushSizeValue" class="font-mono text-terracotta font-bold">14px</span>
+                </div>
+                <input id="brushSizeSlider" type="range" min="2" max="48" value="14" class="w-full" />
+              </div>
+            </div>
+
+            <!-- 실행 취소 / 다시 실행 / 내 그림 지우기 / 시 글씨 비우기 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button type="button" id="panelUndoBtn" class="py-2 px-2.5 rounded-xl bg-white hover:bg-hanji border border-hanji-line text-xs font-bold text-ink flex items-center justify-center gap-1 transition-all duration-300">
+                <i data-lucide="undo-2" class="w-3.5 h-3.5"></i>
+                <span>실행 취소</span>
+              </button>
+              <button type="button" id="panelRedoBtn" class="py-2 px-2.5 rounded-xl bg-white hover:bg-hanji border border-hanji-line text-xs font-bold text-ink flex items-center justify-center gap-1 transition-all duration-300">
+                <i data-lucide="redo-2" class="w-3.5 h-3.5"></i>
+                <span>다시 실행</span>
+              </button>
+              <button type="button" id="clearCanvasBtn" class="py-2 px-2.5 rounded-xl bg-white hover:bg-red-50 border border-hanji-line hover:border-red-300 text-xs font-bold text-seal-red flex items-center justify-center gap-1 transition-all duration-300">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>내 그림 지우기</span>
+              </button>
+              <button type="button" id="clearTextFromStudioBtn" class="py-2 px-2.5 rounded-xl bg-white hover:bg-amber-50 border border-hanji-line hover:border-amber-300 text-xs font-bold text-terracotta-dark flex items-center justify-center gap-1 transition-all duration-300">
+                <i data-lucide="file-minus" class="w-3.5 h-3.5"></i>
+                <span>시 글씨 비우기</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 패널 하단 출처 표기 -->
+          <div class="pt-3 pb-1 border-t border-hanji-line/80 flex items-center justify-between text-[11px] text-ink-faint">
+            <span>순우리말 시 공방 · 소중한 우리말 시화 아틀리에</span>
+            <span class="font-bold text-ink-muted">출처: 하모쌤</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3) 우측(모바일은 하단/전체화면) 메인 스테이지 (기기 크기에 맞춰 비율 자동 스케일링!) -->
+    <main id="rightStageArea" class="flex-1 stage-hanji-bg relative flex flex-col items-center justify-between p-2 sm:p-4 lg:p-6 overflow-hidden">
+
+      <!-- 상단 안내 & 빠른 비율 전환 바 -->
+      <div class="w-full flex flex-wrap items-center justify-between gap-2 z-20 px-1">
+        <div class="hidden sm:flex items-center gap-2 text-[11px] text-ink-muted bg-hanji-light/90 backdrop-blur-sm px-3 py-1 rounded-full border border-hanji-line shadow-sm">
+          <span class="flex items-center gap-1">
+            <i data-lucide="move" class="w-3 h-3 text-terracotta"></i>
+            <strong>시 글상자</strong> 드래그 이동
+          </span>
+          <span class="text-hanji-line">|</span>
+          <span class="flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3 h-3 text-matcha-dark"></i>
+            <strong>지우개</strong>는 내 그림만 지움
+          </span>
+        </div>
+
+        <!-- 스테이지 상단에서도 바로 비율을 바꿀 수 있는 미니 비율 스위치 -->
+        <div class="flex items-center gap-1 bg-hanji-light/90 backdrop-blur-sm p-1 rounded-full border border-hanji-line shadow-sm mx-auto sm:mx-0">
+          <button type="button" data-ratio="portrait" class="ratio-btn px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha text-ink transition-all">
+            세로형(2:3)
+          </button>
+          <button type="button" data-ratio="square" class="ratio-btn px-2.5 py-0.5 rounded-full text-[11px] font-medium text-ink-muted hover:text-ink transition-all">
+            정사각(1:1)
+          </button>
+          <button type="button" data-ratio="landscape" class="ratio-btn px-2.5 py-0.5 rounded-full text-[11px] font-medium text-ink-muted hover:text-ink transition-all">
+            가로형(4:3)
+          </button>
+          <button type="button" id="stageWhiteBgQuickBtn" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white border border-hanji-line text-ink hover:bg-hanji transition-all ml-0.5">
+            백지 전환
+          </button>
+        </div>
+      </div>
+
+      <!-- 중앙: 자동 비율 스케일링 래퍼 (모바일/태블릿/PC 어떤 화면에서도 잘리지 않고 쏙 들어감) -->
+      <div id="stageScaleViewport" class="flex-1 w-full flex items-center justify-center overflow-hidden relative my-1">
+        <div
+          id="poemArtworkFrame"
+          class="poem-frame-shadow bg-[#FDFBF7] p-3.5 sm:p-4 rounded-[4px] relative select-none shrink-0"
+          style="width: 380px; height: 570px;"
+        >
+          <div
+            id="artworkInnerStage"
+            class="theme-hanji relative w-full h-full border border-[#D8CFC0] overflow-hidden"
+          >
+            <!-- [레이어 1-B: 사용자 업로드 배경 사진/그림 레이어] -->
+            <img
+              id="customBgImageEl"
+              src=""
+              alt="사용자 배경"
+              class="hidden absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+              style="opacity: 0.85;"
+            />
+
+            <!-- [레이어 2: 배경 전용 일러스트 캔버스 (지우개로 절대 안 지워짐)] -->
+            <canvas
+              id="bgArtCanvas"
+              width="760"
+              height="1140"
+              class="absolute inset-0 w-full h-full z-[5] pointer-events-none"
+            ></canvas>
+
+            <!-- [레이어 3: 중간 HTML5 Canvas 사용자 드로잉 영역 (지우개는 이 레이어의 내 그림만 지움!)] -->
+            <canvas
+              id="drawingCanvas"
+              width="760"
+              height="1140"
+              class="absolute inset-0 w-full h-full z-10 cursor-crosshair touch-none"
+            ></canvas>
+
+            <!-- [레이어 4: 상단 시 텍스트 & 붉은 낙관 레이어] -->
+            <div
+              id="poemTextOverlay"
+              class="draggable-poem-box absolute z-20 p-3 select-none"
+              style="left: 38px; top: 32px; max-width: 300px;"
+            >
+              <div class="drag-hint-pill opacity-0 hover:opacity-100 transition-opacity duration-200 absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-ink/80 text-white text-[10px] px-2 py-0.5 rounded-full pointer-events-none">
+                드래그하여 시 위치 이동
+              </div>
+
+              <div id="poemTypographyBox" class="font-slot-1 text-center" style="color: #2C2A29;">
+                <h2
+                  id="canvasPoemTitle"
+                  class="font-bold mb-3 tracking-tight"
+                  style="font-size: 24px; line-height: 1.35;"
+                >
+                  윤슬이 머무는 해거름
+                </h2>
+
+                <div
+                  id="canvasPoemBody"
+                  class="whitespace-pre-line"
+                  style="font-size: 17px; line-height: 1.9; letter-spacing: 0.02em;"
+                >산들바람 불어오는 강가에서
+반짝이는 윤슬을 가만히 바라본다
+시나브로 물드는 붉은 해거름에
+우리들의 다솜도 깊어만 간다</div>
+              </div>
+            </div>
+
+            <!-- 우측 하단 작가 서명 & 전통 붉은 낙관(도장) 레이어 -->
+            <div
+              id="poetSignatureBox"
+              class="draggable-poem-box absolute bottom-3.5 right-3.5 z-20 flex items-center gap-2 p-1.5"
+            >
+              <span id="canvasPoetName" class="font-slot-1 text-xs font-semibold tracking-wider text-[#4A4642]">
+                고운마음 씀
+              </span>
+              <div id="canvasSealStamp" class="seal-stamp-square" title="작가 낙관(도장)">
+                고운<br/>마음
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단: 모바일/태블릿 그리기 집중 모드용 미니 퀵 툴바 & 출처: 하모쌤 표기 -->
+      <div class="w-full flex items-center justify-between gap-2 z-20 px-1">
+        <!-- 모바일/태블릿에서도 바로 브러시/지우개를 바꿀 수 있는 미니 퀵바 -->
+        <div class="flex items-center gap-1 bg-hanji-light/95 backdrop-blur-sm px-2.5 py-1 rounded-full border border-hanji-line shadow-sm">
+          <button type="button" data-tool="pencil" class="quick-tool-btn p-1.5 rounded-full text-ink-muted hover:text-ink transition-all" title="연필">
+            <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" data-tool="watercolor" class="quick-tool-btn p-1.5 rounded-full bg-matcha text-ink shadow-sm transition-all" title="수채화 붓">
+            <i data-lucide="paintbrush" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" data-tool="crayon" class="quick-tool-btn p-1.5 rounded-full text-ink-muted hover:text-ink transition-all" title="크레파스">
+            <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" data-tool="eraser" class="quick-tool-btn p-1.5 rounded-full text-ink-muted hover:text-ink transition-all" title="그림 지우개">
+            <i data-lucide="eraser" class="w-3.5 h-3.5"></i>
+          </button>
+          <div class="w-[1px] h-3.5 bg-hanji-line mx-0.5"></div>
+          <button type="button" id="stageClearDrawingQuickBtn" class="px-2 py-0.5 rounded-full text-[11px] font-semibold text-seal-red hover:bg-red-50 transition-all" title="내 그림만 지우기">
+            그림지우기
+          </button>
+        </div>
+
+        <!-- 우측 하단 출처: 하모쌤 고정 배지 -->
+        <div class="text-[11px] font-semibold text-ink-muted bg-hanji-light/85 px-3 py-1 rounded-full border border-hanji-line shadow-sm">
+          출처: <strong class="text-ink">하모쌤</strong>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- 알림 토스트 -->
+  <div id="toastNotification" class="fixed bottom-14 sm:bottom-5 right-4 sm:right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300 ease-in-out bg-ink text-hanji-light px-4 py-2.5 rounded-xl shadow-lg text-xs font-semibold flex items-center gap-2">
+    <i data-lucide="sparkles" class="w-4 h-4 text-terracotta-light"></i>
+    <span id="toastMessage">알림 메시지</span>
+  </div>
+
+  <!-- ========================================================================
+       애플리케이션 스크립트
+       ======================================================================== -->
+  <script>
+    /**************************************************************************
+     * 1. 초등 6학년 수준 아름다운 순우리말 20개 데이터
+     **************************************************************************/
+    const PURE_KOREAN_WORDS = [
+      { word: '윤슬', pos: '명사', meaning: '햇빛이나 달빛에 비치어 반짝이는 잔물결.', example: '강물 위에 부서지는 금빛 윤슬을 보며 너의 웃음을 떠올렸어.' },
+      { word: '미리내', pos: '명사', meaning: '은하수(수많은 별이 강물처럼 보이는 큰 줄기)를 이르는 순우리말.', example: '까만 여름밤 하늘에 반짝이는 미리내가 소리 없이 흐른다.' },
+      { word: '시나브로', pos: '부사', meaning: '모르는 사이에 조금씩 조금씩.', example: '차가운 겨울이 가고 시나브로 봄꽃이 피어났습니다.' },
+      { word: '다솜', pos: '명사', meaning: '애틋하고 따뜻한 사랑을 이르는 옛말.', example: '어머니의 포근한 품에는 언제나 따스한 다솜이 가득하다.' },
+      { word: '꽃잠', pos: '명사', meaning: '새색시와 새신랑이 자는 잠, 또는 아주 깊이 드는 달콤한 잠.', example: '종일 뛰어놀던 강아지가 햇살 아래서 달콤한 꽃잠에 빠졌다.' },
+      { word: '여우비', pos: '명사', meaning: '볕이 나 있는 날에 잠깐 오다가 그치는 비.', example: '구름 한 점 없는 하늘에서 토독토독 장난꾸러기 여우비가 내린다.' },
+      { word: '가온누리', pos: '명사', meaning: '무슨 일이든 세상의 중심이 되어라라는 뜻의 순우리말.', example: '우리들의 푸른 꿈이 자라나 넓고 환한 가온누리가 되기를.' },
+      { word: '아련하다', pos: '형용사', meaning: '보기에 또렷하지 못하고 희미하거나 기억이 가물가물하다.', example: '어릴 적 친구와 걷던 골목길이 노을 속에서 아련하다.' },
+      { word: '샛별', pos: '명사', meaning: '새벽에 동쪽 하늘에서 맑고 환하게 빛나는 금성. 또는 새로운 희망을 이르는 순우리말.', example: '까만 새벽하늘을 밝히는 샛별을 보며 마음속 고운 소원을 빌었어.' },
+      { word: '도란도란', pos: '부사', meaning: '여럿이 나직한 목소리로 서로 정답게 이야기하는 소리 또는 모양.', example: '창가에 앉아 친구와 도란도란 나누는 이야기가 별처럼 피어난다.' },
+      { word: '산들바람', pos: '명사', meaning: '시원하고 가볍게 산들산들 부는 바람.', example: '초록 나뭇잎을 간지럽히며 불어오는 산들바람에 마음이 맑아진다.' },
+      { word: '그루잠', pos: '명사', meaning: '깨었다가 다시 스르르 드는 잠.', example: '새벽녘 빗소리를 자장가 삼아 포근한 그루잠을 청했다.' },
+      { word: '바림', pos: '명사', meaning: '색칠을 할 때 한쪽은 진하게, 다른 쪽으로 갈수록 점점 옅게 번지듯 칠하는 일.', example: '저녁 하늘이 분홍빛과 보랏빛으로 고운 바림을 그려 놓았다.' },
+      { word: '너울', pos: '명사', meaning: '바다나 호수에서 사납게 넓고 크게 일어나는 물결.', example: '수평선 너머로 밀려오는 푸른 너울이 하얀 포말을 일으킨다.' },
+      { word: '꽃샘', pos: '명사', meaning: '봄철에 꽃이 피는 것을 시샘하듯 날씨가 일시적으로 추워지는 일.', example: '마지막 꽃샘 추위가 지나간 자리마다 노란 개나리가 고개를 내민다.' },
+      { word: '아스라이', pos: '부사', meaning: '보기에 까마득하게 멀거나 높게, 또는 기억이 희미하게.', example: '안개 낀 산마루 너머로 새들의 노래가 아스라이 퍼져 나간다.' },
+      { word: '달보드레', pos: '형용사', meaning: '(달보드레하다) 맛이 조금 달콤하고 보드랍다.', example: '가을 햇살에 잘 익은 홍시에서 달보드레한 향기가 번진다.' },
+      { word: '너나들이', pos: '명사', meaning: '서로 ‘너’, ‘나’ 하고 부르며 허물없이 말을 건넴. 또는 그런 친한 사이.', example: '우리 모두 너나들이하며 따뜻한 마음을 나누는 정다운 친구가 되자.' },
+      { word: '해오름', pos: '명사', meaning: '해가 산이나 지평선 위로 솟아오르는 일 또는 그 무렵.', example: '붉은 해오름을 맞이하며 푸른 꿈을 가슴에 품었다.' },
+      { word: '해거름', pos: '명사', meaning: '해가 서쪽으로 넘어가는 무렵(해질녘).', example: '붉은 노을이 내려앉는 해거름이면 집으로 가는 발걸음이 다정해진다.' }
+    ];
+
+    /**************************************************************************
+     * 2. 캔버스 비율 프리셋 및 상태(State) 관리
+     **************************************************************************/
+    const CANVAS_RATIOS = {
+      portrait: { frameW: 380, frameH: 570, canvasW: 760, canvasH: 1140, label: '세로 엽서 (2:3)' },
+      square:   { frameW: 450, frameH: 450, canvasW: 900, canvasH: 900,  label: '정사각 카드 (1:1)' },
+      landscape:{ frameW: 520, frameH: 390, canvasW: 1040, canvasH: 780, label: '가로 화첩 (4:3)' }
+    };
+
+    const state = {
+      activeTab: 'tab-all',
+      mobileFocusCanvas: false,
+      ratioKey: 'portrait',
+      currentScale: 1,
+
+      // 개수 제한 없이 자유롭게 선택 가능!
+      selectedWords: ['산들바람', '윤슬', '시나브로', '해거름', '다솜'],
+      spotlightWord: PURE_KOREAN_WORDS[0],
+      wordFilter: '전체',
+
+      // 타이포그래피 상태
+      fontClass: 'font-slot-1',
+      fontLabel: '고운바탕 (폰트 1)',
+      customUploadedFontName: null,
+      direction: 'horizontal',
+      titleSize: 24,
+      bodySize: 17,
+      lineHeight: 1.9,
+      letterSpacing: 0.02,
+      textAlign: 'center',
+      textColor: '#2C2A29',
+      showTitle: true,
+      showSeal: true,
+      sealShape: 'square',
+
+      // 시화 배경 테마 (하단 레이어 — 지우개에 지워지지 않음)
+      theme: 'theme-hanji',
+      showWaveArtBg: true,
+      customBgDataUrl: null,
+      customBgOpacity: 0.85,
+
+      // 사용자 드로잉 도구 상태 (중간 레이어 — 지우개는 오직 이 레이어만 지움)
+      tool: 'watercolor',
+      brushColor: '#D47A53',
+      brushSize: 14,
+      isDrawing: false,
+      lastX: 0,
+      lastY: 0,
+      history: [],
+      historyIndex: -1
+    };
+
+    /**************************************************************************
+     * 3. 유틸리티 & 토스트 알림
+     **************************************************************************/
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      msgEl.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-2');
+      }, 2400);
+    }
+
+    /**************************************************************************
+     * 4. 기기 화면 크기 & 비율에 맞춘 시화 캔버스 자동 맞춤 스케일링 (Auto-Fit)
+     **************************************************************************/
+    function fitArtworkFrameToViewport() {
+      const viewport = document.getElementById('stageScaleViewport');
+      const frame = document.getElementById('poemArtworkFrame');
+      if (!viewport || !frame) return;
+
+      const preset = CANVAS_RATIOS[state.ratioKey];
+      const availW = Math.max(200, viewport.clientWidth - 16);
+      const availH = Math.max(180, viewport.clientHeight - 16);
+
+      const scaleX = availW / preset.frameW;
+      const scaleY = availH / preset.frameH;
+      // 기기 화면이 작으면 축소하고, 큰 태블릿/모니터에서는 최대 1.18배까지 여유 있게 표시
+      const scale = Math.min(scaleX, scaleY, 1.18);
+
+      state.currentScale = scale;
+      frame.style.width = `${preset.frameW}px`;
+      frame.style.height = `${preset.frameH}px`;
+      frame.style.transform = `scale(${scale})`;
+    }
+
+    // 캔버스 비율 변경 (세로 2:3 / 정사각 1:1 / 가로 4:3) — 기존 그린 그림 유지!
+    function setCanvasRatio(ratioKey) {
+      if (!CANVAS_RATIOS[ratioKey]) return;
+      state.ratioKey = ratioKey;
+      const preset = CANVAS_RATIOS[ratioKey];
+
+      // 기존 사용자 그림 백업
+      const prevDrawingDataUrl = canvas.toDataURL();
+
+      bgArtCanvas.width = preset.canvasW;
+      bgArtCanvas.height = preset.canvasH;
+      canvas.width = preset.canvasW;
+      canvas.height = preset.canvasH;
+
+      // 배경 수채 물결 다시 그리기
+      renderBackgroundWaveArt(state.showWaveArtBg);
+
+      // 기존 사용자 그림 복원
+      const img = new Image();
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        saveCanvasState();
+      };
+      img.src = prevDrawingDataUrl;
+
+      // 텍스트 오버레이가 프레임 밖으로 나가지 않도록 위치 보정
+      const overlay = document.getElementById('poemTextOverlay');
+      overlay.style.left = '28px';
+      overlay.style.top = '24px';
+      overlay.style.maxWidth = `${preset.frameW - 64}px`;
+
+      // 비율 버튼 활성 UI 업데이트
+      document.querySelectorAll('.ratio-btn').forEach(btn => {
+        const active = btn.dataset.ratio === ratioKey;
+        if (btn.closest('#section-studio')) {
+          btn.className = `ratio-btn py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition-all ${
+            active
+              ? 'font-bold border-2 border-matcha-dark bg-white text-ink shadow-sm'
+              : 'font-medium border border-hanji-line bg-white/70 text-ink-muted hover:text-ink'
+          }`;
+        } else {
+          btn.className = `ratio-btn px-2.5 py-0.5 rounded-full text-[11px] transition-all ${
+            active
+              ? 'font-bold bg-matcha text-ink shadow-sm'
+              : 'font-medium text-ink-muted hover:text-ink'
+          }`;
+        }
+      });
+
+      fitArtworkFrameToViewport();
+      showToast(`시화 캔버스를 [${preset.label}] 비율로 맞췄어요.`);
+    }
+
+    /**************************************************************************
+     * 5. 탭 전환 및 모바일/태블릿 [캔버스 크게 보기] 전환
+     **************************************************************************/
+    function setActiveTab(tabId) {
+      state.activeTab = tabId;
+
+      // 모바일에서 탭을 누르면 만약 '캔버스 크게 보기' 상태였다면 패널을 다시 열어줌
+      if (state.mobileFocusCanvas) {
+        toggleMobileCanvasFocus(false);
+      }
+
+      const secWords = document.getElementById('section-words');
+      const secDesk = document.getElementById('section-desk');
+      const secStudio = document.getElementById('section-studio');
+
+      if (tabId === 'tab-all') {
+        secWords.classList.remove('hidden');
+        secDesk.classList.remove('hidden');
+        secStudio.classList.remove('hidden');
+      } else {
+        secWords.classList.toggle('hidden', tabId !== 'tab-words');
+        secDesk.classList.toggle('hidden', tabId !== 'tab-desk');
+        secStudio.classList.toggle('hidden', tabId !== 'tab-studio');
+      }
+
+      document.querySelectorAll('.side-tab-btn').forEach(btn => {
+        const isMatch = btn.dataset.tab === tabId;
+        btn.classList.toggle('bg-matcha', isMatch);
+        btn.classList.toggle('text-ink', isMatch);
+        btn.classList.toggle('text-ink-muted', !isMatch);
+        const indicator = btn.querySelector('.tab-indicator');
+        if (indicator) {
+          indicator.classList.toggle('opacity-100', isMatch);
+          indicator.classList.toggle('opacity-0', !isMatch);
+        }
+      });
+
+      document.querySelectorAll('.top-tab-pill').forEach(pill => {
+        const isMatch = pill.dataset.tab === tabId;
+        pill.classList.toggle('bg-matcha', isMatch);
+        pill.classList.toggle('text-ink', isMatch);
+        pill.classList.toggle('shadow-sm', isMatch);
+        pill.classList.toggle('text-ink-muted', !isMatch);
+        pill.classList.toggle('hover:bg-hanji-deep/50', !isMatch);
+      });
+
+      document.getElementById('leftPanelScroll').scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(fitArtworkFrameToViewport, 50);
+    }
+
+    function toggleMobileCanvasFocus(forceState) {
+      state.mobileFocusCanvas = typeof forceState === 'boolean' ? forceState : !state.mobileFocusCanvas;
+      const leftPanel = document.getElementById('leftControlPanel');
+      const label = document.getElementById('mobileFocusBtnLabel');
+      const btn = document.getElementById('mobileFocusCanvasBtn');
+
+      if (state.mobileFocusCanvas) {
+        leftPanel.classList.add('hidden', 'lg:flex');
+        label.textContent = '도구 패널 열기';
+        btn.classList.replace('bg-[#4E5B47]', 'bg-terracotta');
+      } else {
+        leftPanel.classList.remove('hidden');
+        label.textContent = '캔버스 크게';
+        btn.classList.replace('bg-terracotta', 'bg-[#4E5B47]');
+      }
+      setTimeout(fitArtworkFrameToViewport, 60);
+    }
+
+    /**************************************************************************
+     * 6. ① 고유어 보석함 (자유 선택 무제한) & ② 고유어 실시간 사용 감지
+     **************************************************************************/
+    function isWordUsedInPoem(word, poemText) {
+      if (!poemText) return false;
+      const stems = [word];
+      if (word.endsWith('하다')) {
+        stems.push(word.slice(0, -2));
+      }
+      return stems.some(token => {
+        const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return new RegExp(escaped, 'i').test(poemText);
+      });
+    }
+
+    function renderWordSpotlight(item) {
+      state.spotlightWord = item;
+      document.getElementById('spotlightWord').textContent = item.word;
+      document.getElementById('spotlightPos').textContent = item.pos;
+      document.getElementById('spotlightMeaning').textContent = item.meaning;
+      document.getElementById('spotlightExample').textContent = `“${item.example}”`;
+    }
+
+    function renderWordsAndBasket() {
+      const poemBody = document.getElementById('poemBodyInput').value;
+      const poemTitle = document.getElementById('poemTitleInput').value;
+      const combinedText = `${poemTitle}\n${poemBody}`;
+
+      const grid = document.getElementById('wordCardsGrid');
+      grid.innerHTML = '';
+
+      const filtered = PURE_KOREAN_WORDS.filter(item =>
+        state.wordFilter === '전체' ? true : item.pos === state.wordFilter
+      );
+
+      filtered.forEach(item => {
+        const isSelected = state.selectedWords.includes(item.word);
+        const isUsed = isWordUsedInPoem(item.word, combinedText);
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `group relative h-14 sm:h-16 rounded-xl border text-center flex flex-col items-center justify-center p-1 transition-all duration-300 ease-in-out ${
+          isSelected
+            ? 'bg-[#BAC5B2] border-[#7E8F74] text-ink shadow-sm font-bold scale-[1.02]'
+            : 'bg-[#F8F5EE] hover:bg-white border-hanji-line text-ink hover:border-matcha-dark'
+        }`;
+
+        btn.innerHTML = `
+          <span class="text-xs sm:text-sm tracking-tight">${item.word}</span>
+          <span class="text-[10px] ${isSelected ? 'text-[#3F4B38]' : 'text-ink-faint'}">${item.pos}</span>
+          ${
+            isSelected
+              ? `<span class="absolute top-1 right-1 w-3.5 h-3.5 rounded-full ${
+                  isUsed ? 'bg-terracotta text-white' : 'bg-white/80 text-matcha-deep'
+                } text-[9px] flex items-center justify-center shadow-sm">✓</span>`
+              : ''
+          }
+        `;
+
+        btn.addEventListener('click', () => {
+          renderWordSpotlight(item);
+          toggleSelectWord(item.word);
+        });
+
+        grid.appendChild(btn);
+      });
+
+      const count = state.selectedWords.length;
+      document.getElementById('basketCountText').textContent = count;
+      document.getElementById('basketCountPill').textContent = `${count}`;
+
+      const basketContainer = document.getElementById('selectedWordsContainer');
+      const headerBadges = document.getElementById('headerBasketBadges');
+      const deskBadges = document.getElementById('deskTargetWordBadges');
+
+      basketContainer.innerHTML = '';
+      headerBadges.innerHTML = '';
+      deskBadges.innerHTML = '';
+
+      if (count === 0) {
+        basketContainer.innerHTML = `<span class="text-xs text-ink-faint">아래 단어 카드를 눌러 원하는 만큼 자유롭게 담아 보세요.</span>`;
+        headerBadges.innerHTML = `<span class="text-xs text-ink-muted">단어를 선택해 주세요</span>`;
+        deskBadges.innerHTML = `<span class="text-xs text-ink-faint">[① 보석함]에서 마음에 드는 단어를 골라 보세요.</span>`;
+        document.getElementById('wordDetectSummary').textContent = '선택된 목표 단어가 없습니다';
+        return;
+      }
+
+      let usedCount = 0;
+
+      state.selectedWords.forEach(word => {
+        const used = isWordUsedInPoem(word, combinedText);
+        if (used) usedCount++;
+
+        const chip1 = document.createElement('span');
+        chip1.className = `inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold border transition-all duration-300 ${
+          used
+            ? 'bg-terracotta text-white border-terracotta shadow-sm'
+            : 'bg-white text-ink border-matcha-dark'
+        }`;
+        chip1.innerHTML = `
+          <span>${word}</span>
+          <button type="button" class="hover:opacity-75 text-[11px]" title="바구니에서 빼기">✕</button>
+        `;
+        chip1.querySelector('button').addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleSelectWord(word);
+        });
+        basketContainer.appendChild(chip1);
+
+        const chipHeader = document.createElement('span');
+        chipHeader.className = `px-2.5 py-0.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1 shrink-0 ${
+          used
+            ? 'bg-terracotta text-white shadow-sm'
+            : 'bg-white/80 text-ink border border-hanji-line'
+        }`;
+        chipHeader.innerHTML = `${used ? '✦ ' : ''}${word}`;
+        headerBadges.appendChild(chipHeader);
+
+        const chipDesk = document.createElement('button');
+        chipDesk.type = 'button';
+        chipDesk.title = '터치하면 시 본문 커서 위치에 이 단어를 넣습니다';
+        chipDesk.className = `px-2.5 py-1 rounded-xl text-xs font-bold border transition-all duration-300 flex items-center gap-1 ${
+          used
+            ? 'badge-used bg-terracotta text-white border-terracotta shadow-sm'
+            : 'bg-hanji-light text-ink-muted border-hanji-line hover:border-matcha-dark'
+        }`;
+        chipDesk.innerHTML = `
+          <span>${used ? '✨' : '○'}</span>
+          <span>${word}</span>
+          <span class="text-[10px] px-1.5 py-0.2 rounded-full ${
+            used ? 'bg-white/25 text-white' : 'bg-hanji-deep text-ink-muted'
+          }">${used ? '사용됨 ✓' : '미사용'}</span>
+        `;
+        chipDesk.addEventListener('click', () => {
+          insertWordIntoTextarea(word);
+        });
+        deskBadges.appendChild(chipDesk);
+      });
+
+      const summaryEl = document.getElementById('wordDetectSummary');
+      if (usedCount === count) {
+        summaryEl.textContent = `참 잘했어요! 선택한 고유어 ${count}개를 모두 시에 담았어요 ✨`;
+        summaryEl.className = 'text-[11px] font-bold text-terracotta';
+      } else {
+        summaryEl.textContent = `선택한 ${count}개 중 ${usedCount}개 사용 완료`;
+        summaryEl.className = 'text-[11px] font-semibold text-matcha-deep';
+      }
+    }
+
+    function toggleSelectWord(word) {
+      const idx = state.selectedWords.indexOf(word);
+      if (idx >= 0) {
+        state.selectedWords.splice(idx, 1);
+      } else {
+        state.selectedWords.push(word);
+      }
+      renderWordsAndBasket();
+    }
+
+    function insertWordIntoTextarea(word) {
+      const textarea = document.getElementById('poemBodyInput');
+      const start = textarea.selectionStart ?? textarea.value.length;
+      const end = textarea.selectionEnd ?? textarea.value.length;
+      const before = textarea.value.substring(0, start);
+      const after = textarea.value.substring(end);
+      textarea.value = `${before}${word}${after}`;
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + word.length;
+      syncPoemToCanvas();
+      renderWordsAndBasket();
+    }
+
+    /**************************************************************************
+     * 7. 시인의 책상 & 타이포그래피 컨트롤러 실시간 동기화
+     **************************************************************************/
+    function syncPoemToCanvas() {
+      const titleVal = document.getElementById('poemTitleInput').value.trim();
+      const bodyVal = document.getElementById('poemBodyInput').value;
+      const poetVal = document.getElementById('poetNameInput').value.trim();
+
+      const titleEl = document.getElementById('canvasPoemTitle');
+      const bodyEl = document.getElementById('canvasPoemBody');
+      const typoBox = document.getElementById('poemTypographyBox');
+      const poetNameEl = document.getElementById('canvasPoetName');
+      const sealEl = document.getElementById('canvasSealStamp');
+
+      titleEl.textContent = titleVal;
+      titleEl.classList.toggle('hidden', !state.showTitle || !titleVal);
+      bodyEl.textContent = bodyVal;
+
+      typoBox.className = `${state.fontClass} transition-all duration-200`;
+      poetNameEl.className = `${state.fontClass} text-xs font-semibold tracking-wider`;
+
+      if (state.customUploadedFontName) {
+        typoBox.style.fontFamily = `'${state.customUploadedFontName}', serif`;
+        poetNameEl.style.fontFamily = `'${state.customUploadedFontName}', serif`;
+      } else {
+        typoBox.style.fontFamily = '';
+        poetNameEl.style.fontFamily = '';
+      }
+
+      if (state.direction === 'vertical') {
+        typoBox.classList.add('writing-vertical');
+        titleEl.style.marginBottom = '0px';
+        titleEl.style.marginLeft = '14px';
+      } else {
+        typoBox.classList.remove('writing-vertical');
+        titleEl.style.marginLeft = '0px';
+        titleEl.style.marginBottom = '12px';
+      }
+
+      titleEl.style.fontSize = `${state.titleSize}px`;
+      bodyEl.style.fontSize = `${state.bodySize}px`;
+      bodyEl.style.lineHeight = state.lineHeight;
+      bodyEl.style.letterSpacing = `${state.letterSpacing}em`;
+      typoBox.style.textAlign = state.textAlign;
+      typoBox.style.color = state.textColor;
+      poetNameEl.style.color = state.textColor;
+
+      const cleanName = (poetVal || '시인').replace(/\s+/g, '');
+      poetNameEl.textContent = poetVal ? `${poetVal} 씀` : '';
+
+      sealEl.className = state.sealShape === 'square' ? 'seal-stamp-square' : 'seal-stamp-circle';
+      if (!state.showSeal) sealEl.classList.add('hidden');
+
+      const isCircle = state.sealShape === 'circle';
+
+      // 글자 수 및 도장 형태(원형/사각)에 따라 폰트 크기와 배치를 정밀 자동 조절하여 테두리 이탈 완벽 방지
+      if (cleanName.length === 1) {
+        sealEl.style.fontSize = isCircle ? '11px' : '12px';
+        sealEl.style.lineHeight = '1.1';
+        sealEl.innerHTML = `${cleanName}印`;
+      } else if (cleanName.length === 2) {
+        sealEl.style.fontSize = isCircle ? '10px' : '11px';
+        sealEl.style.lineHeight = '1.1';
+        sealEl.innerHTML = `${cleanName.slice(0, 1)}<br/>${cleanName.slice(1, 2)}`;
+      } else if (cleanName.length === 3) {
+        // 3글자(예: '하모쌤')일 때: 원형 도장에서도 곡선 테두리를 절대 벗어나지 않도록 폰트 크기 및 여백 최적화
+        sealEl.style.fontSize = isCircle ? '8.5px' : '9.5px';
+        sealEl.style.lineHeight = '1.05';
+        sealEl.style.letterSpacing = '-0.05em';
+        sealEl.innerHTML = `${cleanName.slice(0, 2)}<br/>${cleanName.slice(2, 3)}印`;
+      } else {
+        // 4글자 이상
+        const four = cleanName.slice(0, 4);
+        sealEl.style.fontSize = isCircle ? '8.5px' : '9.5px';
+        sealEl.style.lineHeight = '1.05';
+        sealEl.style.letterSpacing = '-0.05em';
+        sealEl.innerHTML = `${four.slice(0, 2)}<br/>${four.slice(2, 4)}`;
+      }
+    }
+
+    /**************************************************************************
+     * 8. 브라우저 FontFace API를 이용한 로컬 폰트 파일 즉시 업로드
+     **************************************************************************/
+    async function handleLocalFontUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      try {
+        const buffer = await file.arrayBuffer();
+        const fontFamilyName = `UserLocalFont_${Date.now()}`;
+        const customFont = new FontFace(fontFamilyName, buffer);
+        await customFont.load();
+        document.fonts.add(customFont);
+
+        state.customUploadedFontName = fontFamilyName;
+        const cleanFileName = file.name.replace(/\.[^/.]+$/, '');
+        state.fontLabel = `내 폰트: ${cleanFileName}`;
+        document.getElementById('activeFontBadge').textContent = `현재: ${state.fontLabel}`;
+
+        document.querySelectorAll('.font-card-btn').forEach(b => {
+          b.classList.remove('border-2', 'border-matcha-dark', 'bg-matcha-light/40');
+          b.classList.add('border', 'border-hanji-line', 'bg-white');
+        });
+
+        const grid = document.getElementById('fontCardGrid');
+        const newCard = document.createElement('button');
+        newCard.type = 'button';
+        newCard.className = 'font-card-btn p-2.5 rounded-xl border-2 border-terracotta bg-terracotta/10 text-left transition-all duration-300 ease-in-out col-span-2';
+        newCard.style.fontFamily = `'${fontFamilyName}', serif`;
+        newCard.innerHTML = `
+          <div class="text-xs font-bold text-terracotta-dark flex items-center justify-between font-sans">
+            <span>✨ 불러온 폰트: ${cleanFileName}</span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-terracotta text-white">적용됨</span>
+          </div>
+          <div class="text-base text-ink mt-1 truncate">윤슬이 반짝이는 해거름 — 소중한 우리말</div>
+        `;
+        newCard.addEventListener('click', () => {
+          state.customUploadedFontName = fontFamilyName;
+          document.getElementById('activeFontBadge').textContent = `현재: ${cleanFileName}`;
+          syncPoemToCanvas();
+        });
+        grid.prepend(newCard);
+
+        syncPoemToCanvas();
+        showToast(`'${cleanFileName}' 폰트를 시화에 성공적으로 적용했어요!`);
+      } catch (err) {
+        console.error(err);
+        showToast('폰트 파일을 불러오지 못했습니다. (.ttf, .otf, .woff 파일을 확인해 주세요)');
+      }
+    }
+
+    /**************************************************************************
+     * 9. 시화 카드 내 텍스트 블록 마우스/터치 드래그 이동 (스케일 비율 완벽 보정!)
+     **************************************************************************/
+    function makeElementDraggable(el, container) {
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let initialLeft = 0;
+      let initialTop = 0;
+
+      const onPointerDown = (clientX, clientY) => {
+        isDragging = true;
+        el.classList.add('dragging');
+        const scale = state.currentScale || 1;
+        const rect = el.getBoundingClientRect();
+        const parentRect = container.getBoundingClientRect();
+
+        initialLeft = (rect.left - parentRect.left) / scale;
+        initialTop = (rect.top - parentRect.top) / scale;
+        el.style.left = `${initialLeft}px`;
+        el.style.top = `${initialTop}px`;
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+
+        startX = clientX;
+        startY = clientY;
+      };
+
+      const onPointerMove = (clientX, clientY) => {
+        if (!isDragging) return;
+        const scale = state.currentScale || 1;
+        const dx = (clientX - startX) / scale;
+        const dy = (clientY - startY) / scale;
+
+        const maxLeft = container.clientWidth - el.offsetWidth;
+        const maxTop = container.clientHeight - el.offsetHeight;
+
+        const nextLeft = Math.max(4, Math.min(maxLeft - 4, initialLeft + dx));
+        const nextTop = Math.max(4, Math.min(maxTop - 4, initialTop + dy));
+
+        el.style.left = `${nextLeft}px`;
+        el.style.top = `${nextTop}px`;
+      };
+
+      const onPointerUp = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        el.classList.remove('dragging');
+      };
+
+      el.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        onPointerDown(e.clientX, e.clientY);
+      });
+      window.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY));
+      window.addEventListener('mouseup', onPointerUp);
+
+      el.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        e.stopPropagation();
+        e.preventDefault();
+        onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: false });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        e.preventDefault();
+        onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: false });
+
+      window.addEventListener('touchend', onPointerUp);
+    }
+
+    /**************************************************************************
+     * 10. 완벽 분리된 레이어 캔버스 엔진
+     *     - bgArtCanvas: 배경 전용 수채 물결 일러스트 레이어 (지우개 영향 절대 없음!)
+     *     - drawingCanvas: 학생이 직접 그리는 그림 레이어 (지우개는 오직 여기만 지움!)
+     **************************************************************************/
+    const bgArtCanvas = document.getElementById('bgArtCanvas');
+    const bgArtCtx = bgArtCanvas.getContext('2d');
+
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function renderBackgroundWaveArt(show) {
+      bgArtCtx.clearRect(0, 0, bgArtCanvas.width, bgArtCanvas.height);
+      if (!show) return;
+
+      bgArtCtx.save();
+      const W = bgArtCanvas.width;
+      const H = bgArtCanvas.height;
+
+      const gradSky = bgArtCtx.createRadialGradient(W * 0.35, H * 0.62, 20, W * 0.45, H * 0.62, W * 0.65);
+      gradSky.addColorStop(0, 'rgba(225, 130, 85, 0.42)');
+      gradSky.addColorStop(0.55, 'rgba(238, 178, 140, 0.22)');
+      gradSky.addColorStop(1, 'rgba(250, 240, 228, 0)');
+      bgArtCtx.fillStyle = gradSky;
+      bgArtCtx.beginPath();
+      bgArtCtx.arc(W * 0.42, H * 0.62, W * 0.65, 0, Math.PI * 2);
+      bgArtCtx.fill();
+
+      function fillWaveLayer(yBase, amp1, amp2, fillStyle, strokeStyle) {
+        bgArtCtx.beginPath();
+        bgArtCtx.moveTo(0, yBase);
+        for (let x = 0; x <= W; x += 10) {
+          const y =
+            yBase +
+            Math.sin((x / W) * Math.PI * 2.2) * amp1 +
+            Math.cos((x / W) * Math.PI * 3.5) * amp2;
+          bgArtCtx.lineTo(x, y);
+        }
+        bgArtCtx.lineTo(W, H);
+        bgArtCtx.lineTo(0, H);
+        bgArtCtx.closePath();
+        bgArtCtx.fillStyle = fillStyle;
+        bgArtCtx.fill();
+
+        if (strokeStyle) {
+          bgArtCtx.beginPath();
+          for (let x = 0; x <= W; x += 8) {
+            const y =
+              yBase +
+              Math.sin((x / W) * Math.PI * 2.2) * amp1 +
+              Math.cos((x / W) * Math.PI * 3.5) * amp2;
+            if (x === 0) bgArtCtx.moveTo(x, y);
+            else bgArtCtx.lineTo(x, y);
+          }
+          bgArtCtx.strokeStyle = strokeStyle;
+          bgArtCtx.lineWidth = 2.2;
+          bgArtCtx.stroke();
+        }
+      }
+
+      fillWaveLayer(H * 0.64, -26, 18, 'rgba(218, 122, 78, 0.45)', 'rgba(120, 62, 38, 0.65)');
+      fillWaveLayer(H * 0.72, 24, -16, 'rgba(206, 108, 68, 0.42)', 'rgba(105, 52, 32, 0.75)');
+      fillWaveLayer(H * 0.80, -20, 14, 'rgba(232, 165, 125, 0.55)', 'rgba(115, 65, 42, 0.65)');
+      fillWaveLayer(H * 0.88, 18, -10, 'rgba(176, 190, 162, 0.65)', 'rgba(88, 102, 78, 0.75)');
+      fillWaveLayer(H * 0.94, -12, 8, 'rgba(215, 222, 204, 0.75)', 'rgba(98, 110, 88, 0.6)');
+
+      bgArtCtx.fillStyle = 'rgba(255, 238, 185, 0.85)';
+      for (let i = 0; i < 28; i++) {
+        const rx = W * 0.15 + Math.random() * W * 0.7;
+        const ry = H * 0.62 + Math.random() * H * 0.25;
+        bgArtCtx.beginPath();
+        bgArtCtx.arc(rx, ry, 1.5 + Math.random() * 2.5, 0, Math.PI * 2);
+        bgArtCtx.fill();
+      }
+
+      bgArtCtx.restore();
+    }
+
+    function saveCanvasState() {
+      if (state.historyIndex < state.history.length - 1) {
+        state.history = state.history.slice(0, state.historyIndex + 1);
+      }
+      state.history.push(canvas.toDataURL());
+      if (state.history.length > 25) {
+        state.history.shift();
+      } else {
+        state.historyIndex++;
+      }
+    }
+
+    function restoreCanvasFromDataUrl(dataUrl) {
+      const img = new Image();
+      img.onload = () => {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      img.src = dataUrl;
+    }
+
+    function undoCanvas() {
+      if (state.historyIndex > 0) {
+        state.historyIndex--;
+        restoreCanvasFromDataUrl(state.history[state.historyIndex]);
+        showToast('내가 그린 이전 그림 단계로 되돌렸어요.');
+      } else {
+        showToast('더 이상 실행 취소할 내 그림이 없어요.');
+      }
+    }
+
+    function redoCanvas() {
+      if (state.historyIndex < state.history.length - 1) {
+        state.historyIndex++;
+        restoreCanvasFromDataUrl(state.history[state.historyIndex]);
+        showToast('내 그림을 다시 실행했어요.');
+      } else {
+        showToast('다시 실행할 내 그림이 없어요.');
+      }
+    }
+
+    function getCanvasCoords(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      return {
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY
+      };
+    }
+
+    function drawStrokeSegment(x1, y1, x2, y2) {
+      ctx.save();
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (state.tool === 'eraser') {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.globalAlpha = 1.0;
+        ctx.lineWidth = state.brushSize * 2.4;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      } else if (state.tool === 'pencil') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 0.88;
+        ctx.strokeStyle = state.brushColor;
+        ctx.lineWidth = Math.max(1.5, state.brushSize * 0.45);
+        ctx.shadowBlur = 0;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      } else if (state.tool === 'watercolor') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 0.08;
+        ctx.strokeStyle = state.brushColor;
+        ctx.shadowColor = state.brushColor;
+        ctx.shadowBlur = state.brushSize * 0.8;
+        ctx.lineWidth = state.brushSize * 2.1;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      } else if (state.tool === 'crayon') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = state.brushColor;
+        const dist = Math.hypot(x2 - x1, y2 - y1);
+        const steps = Math.max(1, Math.ceil(dist / 3));
+        const radius = state.brushSize * 0.85;
+
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const cx = x1 + (x2 - x1) * t;
+          const cy = y1 + (y2 - y1) * t;
+          for (let j = 0; j < 14; j++) {
+            const angle = Math.random() * Math.PI * 2;
+            const r = Math.random() * radius;
+            ctx.globalAlpha = 0.25 + Math.random() * 0.45;
+            ctx.fillRect(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 2.4, 2.4);
+          }
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function initCanvasEvents() {
+      canvas.addEventListener('mousedown', (e) => {
+        state.isDrawing = true;
+        const { x, y } = getCanvasCoords(e.clientX, e.clientY);
+        state.lastX = x;
+        state.lastY = y;
+        drawStrokeSegment(x, y, x + 0.1, y + 0.1);
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!state.isDrawing) return;
+        const { x, y } = getCanvasCoords(e.clientX, e.clientY);
+        drawStrokeSegment(state.lastX, state.lastY, x, y);
+        state.lastX = x;
+        state.lastY = y;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!state.isDrawing) return;
+        state.isDrawing = false;
+        saveCanvasState();
+      });
+
+      canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (e.touches.length !== 1) return;
+        state.isDrawing = true;
+        const touch = e.touches[0];
+        const { x, y } = getCanvasCoords(touch.clientX, touch.clientY);
+        state.lastX = x;
+        state.lastY = y;
+        drawStrokeSegment(x, y, x + 0.1, y + 0.1);
+      }, { passive: false });
+
+      canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (!state.isDrawing || e.touches.length !== 1) return;
+        const touch = e.touches[0];
+        const { x, y } = getCanvasCoords(touch.clientX, touch.clientY);
+        drawStrokeSegment(state.lastX, state.lastY, x, y);
+        state.lastX = x;
+        state.lastY = y;
+      }, { passive: false });
+
+      canvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (!state.isDrawing) return;
+        state.isDrawing = false;
+        saveCanvasState();
+      }, { passive: false });
+    }
+
+    /**************************************************************************
+     * 11. 고해상도 PNG 이미지 출판 (모바일/태블릿에서도 원본 고화질로 저장!)
+     **************************************************************************/
+    async function exportArtworkAsPng() {
+      const frame = document.getElementById('poemArtworkFrame');
+      const exportBtn = document.getElementById('exportPngBtn');
+      const prevTransform = frame.style.transform;
+
+      try {
+        exportBtn.disabled = true;
+        exportBtn.innerHTML = `<span>인화 중...</span>`;
+        frame.classList.add('capturing-clean');
+        // 캡처 순간에는 스케일을 1로 잠시 복원해 언제나 선명한 원본 해상도(scale: 2)로 저장
+        frame.style.transform = 'scale(1)';
+
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+
+        const renderedCanvas = await html2canvas(frame, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#FDFBF7',
+          logging: false
+        });
+
+        const titleVal = document.getElementById('poemTitleInput').value.trim() || '순우리말_시화작품';
+        const safeFileName = titleVal.replace(/[\\/:*?"<>|]/g, '_');
+
+        const link = document.createElement('a');
+        link.download = `${safeFileName}_순우리말시공방.png`;
+        link.href = renderedCanvas.toDataURL('image/png');
+        link.click();
+
+        showToast('고해상도 시화 작품 이미지가 저장되었습니다! 🎨');
+      } catch (err) {
+        console.error(err);
+        showToast('이미지 저장 중 문제가 발생했습니다.');
+      } finally {
+        frame.style.transform = prevTransform;
+        frame.classList.remove('capturing-clean');
+        exportBtn.disabled = false;
+        exportBtn.innerHTML = `<i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>저장하기</span>`;
+        lucide.createIcons();
+      }
+    }
+
+    /**************************************************************************
+     * 12. 초기 이벤트 바인딩 및 실행
+     **************************************************************************/
+    function initApp() {
+      lucide.createIcons();
+
+      renderWordSpotlight(PURE_KOREAN_WORDS[0]);
+      renderWordsAndBasket();
+      syncPoemToCanvas();
+
+      // 배경 전용 캔버스에 수채 물결 일러스트 그리기 & 사용자 드로잉 캔버스는 깨끗한 투명 상태로 시작
+      renderBackgroundWaveArt(true);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      saveCanvasState();
+
+      initCanvasEvents();
+
+      // 기기 화면 크기에 맞춰 실시간 자동 맞춤 스케일링 (ResizeObserver & orientationchange)
+      fitArtworkFrameToViewport();
+      window.addEventListener('resize', fitArtworkFrameToViewport);
+      window.addEventListener('orientationchange', () => setTimeout(fitArtworkFrameToViewport, 150));
+      const viewportEl = document.getElementById('stageScaleViewport');
+      if (window.ResizeObserver && viewportEl) {
+        new ResizeObserver(() => fitArtworkFrameToViewport()).observe(viewportEl);
+      }
+
+      // 시 텍스트 & 작가 서명 드래그 이동 활성화
+      const stage = document.getElementById('artworkInnerStage');
+      makeElementDraggable(document.getElementById('poemTextOverlay'), stage);
+      makeElementDraggable(document.getElementById('poetSignatureBox'), stage);
+
+      // 모바일/태블릿 [캔버스 크게 보기] 버튼
+      document.getElementById('mobileFocusCanvasBtn').addEventListener('click', () => {
+        toggleMobileCanvasFocus();
+      });
+
+      // 캔버스 비율 선택 버튼 (세로 2:3 / 정사각 1:1 / 가로 4:3)
+      document.querySelectorAll('.ratio-btn').forEach(btn => {
+        btn.addEventListener('click', () => setCanvasRatio(btn.dataset.ratio));
+      });
+
+      // 스테이지 상단 '백지 전환' 퀵버튼
+      document.getElementById('stageWhiteBgQuickBtn').addEventListener('click', () => {
+        const whiteThemeBtn = document.querySelector('.theme-btn[data-theme="theme-white"]');
+        if (whiteThemeBtn) whiteThemeBtn.click();
+        showToast('순백 도화지(백지) 배경으로 전환했어요.');
+      });
+
+      // 탭 버튼
+      document.querySelectorAll('.side-tab-btn, .top-tab-pill').forEach(btn => {
+        btn.addEventListener('click', () => setActiveTab(btn.dataset.tab));
+      });
+      document.querySelectorAll('[data-goto]').forEach(btn => {
+        btn.addEventListener('click', () => setActiveTab(btn.dataset.goto));
+      });
+
+      setActiveTab('tab-all');
+
+      // 품사 필터
+      document.getElementById('wordFilterSelect').addEventListener('change', (e) => {
+        state.wordFilter = e.target.value;
+        renderWordsAndBasket();
+      });
+
+      // 전체 담기 & 바구니 비우기
+      document.getElementById('selectAllWordsBtn').addEventListener('click', () => {
+        const filtered = PURE_KOREAN_WORDS.filter(item =>
+          state.wordFilter === '전체' ? true : item.pos === state.wordFilter
+        );
+        filtered.forEach(item => {
+          if (!state.selectedWords.includes(item.word)) {
+            state.selectedWords.push(item.word);
+          }
+        });
+        renderWordsAndBasket();
+        showToast(`고유어 ${state.selectedWords.length}개를 글감 바구니에 담았어요!`);
+      });
+
+      document.getElementById('clearBasketBtn').addEventListener('click', () => {
+        state.selectedWords = [];
+        renderWordsAndBasket();
+        showToast('글감 바구니를 비웠어요.');
+      });
+
+      // 시 제목 / 본문 / 작가명 실시간 입력
+      document.getElementById('poemTitleInput').addEventListener('input', () => {
+        syncPoemToCanvas();
+        renderWordsAndBasket();
+      });
+      document.getElementById('poemBodyInput').addEventListener('input', () => {
+        syncPoemToCanvas();
+        renderWordsAndBasket();
+      });
+      document.getElementById('poetNameInput').addEventListener('input', syncPoemToCanvas);
+
+      // 시 글씨만 비우기 버튼
+      function clearPoemTextOnly() {
+        document.getElementById('poemTitleInput').value = '';
+        document.getElementById('poemBodyInput').value = '';
+        syncPoemToCanvas();
+        renderWordsAndBasket();
+        showToast('시 제목과 본문 글씨를 비웠어요 (배경과 그림은 유지됩니다).');
+      }
+      document.getElementById('clearPoemTextBtn').addEventListener('click', clearPoemTextOnly);
+      document.getElementById('clearTextFromStudioBtn').addEventListener('click', clearPoemTextOnly);
+
+      document.getElementById('showTitleToggle').addEventListener('change', (e) => {
+        state.showTitle = e.target.checked;
+        syncPoemToCanvas();
+      });
+      document.getElementById('showSealToggle').addEventListener('change', (e) => {
+        state.showSeal = e.target.checked;
+        syncPoemToCanvas();
+      });
+
+      // 낙관 모양 선택
+      document.querySelectorAll('.seal-shape-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.sealShape = btn.dataset.sealShape;
+          document.querySelectorAll('.seal-shape-btn').forEach(b => {
+            const active = b.dataset.sealShape === state.sealShape;
+            b.className = `seal-shape-btn flex-1 py-2 px-2 rounded-lg text-xs font-semibold border transition-all duration-300 ${
+              active
+                ? 'border-terracotta bg-terracotta/10 text-terracotta-dark'
+                : 'border-hanji-line bg-white text-ink-muted'
+            }`;
+          });
+          syncPoemToCanvas();
+        });
+      });
+
+      // 시문 영감 넣기
+      const SAMPLE_POEMS = [
+        {
+          words: ['산들바람', '윤슬', '시나브로', '해거름', '다솜'],
+          title: '윤슬이 머무는 해거름',
+          body: '산들바람 불어오는 강가에서\n반짝이는 윤슬을 가만히 바라본다\n시나브로 물드는 붉은 해거름에\n우리들의 다솜도 깊어만 간다'
+        },
+        {
+          words: ['미리내', '샛별', '도란도란', '꽃잠'],
+          title: '샛별이 빛나는 밤의 꽃잠',
+          body: '까만 밤하늘 은빛 미리내 건너\n반짝이는 샛별이 조용히 내려옵니다\n도란도란 나누던 이야기 끝에\n포근한 꽃잠이 솔솔 찾아옵니다'
+        },
+        {
+          words: ['여우비', '산들바람', '바림'],
+          title: '여우비 지나간 자리',
+          body: '햇살 사이로 토독토독 여우비 내리더니\n산들바람이 풀잎 눈물을 닦아 주네\n연분홍 무지개 고운 바림으로\n내 마음 도화지도 환하게 물든다'
+        }
+      ];
+      let sampleIdx = 0;
+      document.getElementById('inspirePoemBtn').addEventListener('click', () => {
+        sampleIdx = (sampleIdx + 1) % SAMPLE_POEMS.length;
+        const p = SAMPLE_POEMS[sampleIdx];
+        state.selectedWords = [...p.words];
+        document.getElementById('poemTitleInput').value = p.title;
+        document.getElementById('poemBodyInput').value = p.body;
+        syncPoemToCanvas();
+        renderWordsAndBasket();
+        showToast(`'${p.title}' 예시 시문을 불러왔어요!`);
+      });
+
+      // 상단 가로/세로 글쓰기 구도 전환 버튼
+      let isRefVertical = false;
+      document.getElementById('sampleArtworkBtn').addEventListener('click', () => {
+        isRefVertical = !isRefVertical;
+        const overlay = document.getElementById('poemTextOverlay');
+        if (isRefVertical) {
+          state.direction = 'vertical';
+          state.showTitle = false;
+          document.getElementById('showTitleToggle').checked = false;
+          overlay.style.left = '155px';
+          overlay.style.top = '32px';
+          showToast('전통 세로쓰기 시화 구도로 전환했어요!');
+        } else {
+          state.direction = 'horizontal';
+          state.showTitle = true;
+          document.getElementById('showTitleToggle').checked = true;
+          overlay.style.left = '38px';
+          overlay.style.top = '32px';
+          showToast('가로쓰기 시화 구도로 전환했어요!');
+        }
+        updateDirectionButtonsUI();
+        syncPoemToCanvas();
+      });
+
+      function updateDirectionButtonsUI() {
+        document.querySelectorAll('.dir-btn').forEach(b => {
+          const active = b.dataset.direction === state.direction;
+          b.className = `dir-btn px-2.5 py-1 rounded-md text-xs font-bold transition-all duration-300 ${
+            active ? 'bg-white text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
+          }`;
+        });
+      }
+      document.querySelectorAll('.dir-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.direction = btn.dataset.direction;
+          updateDirectionButtonsUI();
+          syncPoemToCanvas();
+        });
+      });
+
+      // 폰트 카드 선택
+      document.querySelectorAll('.font-card-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.customUploadedFontName = null;
+          state.fontClass = btn.dataset.font;
+          state.fontLabel = btn.dataset.fontLabel;
+          document.getElementById('activeFontBadge').textContent = `현재: ${state.fontLabel}`;
+
+          document.querySelectorAll('.font-card-btn').forEach(b => {
+            const active = b === btn;
+            b.className = `font-card-btn ${b.dataset.font || ''} p-2.5 rounded-xl text-left transition-all duration-300 ease-in-out ${
+              active
+                ? 'border-2 border-matcha-dark bg-matcha-light/40'
+                : 'border border-hanji-line bg-white hover:bg-hanji/50'
+            }`;
+          });
+          syncPoemToCanvas();
+        });
+      });
+
+      document.getElementById('uploadLocalFontBtn').addEventListener('click', () => {
+        document.getElementById('localFontFileInput').click();
+      });
+      document.getElementById('localFontFileInput').addEventListener('change', handleLocalFontUpload);
+
+      // 글씨 크기 프리셋
+      const SIZE_PRESETS = {
+        small: { title: 20, body: 14 },
+        normal: { title: 24, body: 17 },
+        large: { title: 30, body: 21 },
+        xlarge: { title: 36, body: 26 }
+      };
+      document.querySelectorAll('.size-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const preset = SIZE_PRESETS[btn.dataset.sizePreset];
+          if (!preset) return;
+          state.titleSize = preset.title;
+          state.bodySize = preset.body;
+          document.getElementById('titleSizeSlider').value = preset.title;
+          document.getElementById('bodySizeSlider').value = preset.body;
+          document.getElementById('titleSizeValue').textContent = `${preset.title}px`;
+          document.getElementById('bodySizeValue').textContent = `${preset.body}px`;
+
+          document.querySelectorAll('.size-preset-btn').forEach(b => {
+            const active = b === btn;
+            b.className = `size-preset-btn py-1.5 rounded-lg text-xs transition-all duration-300 ${
+              active
+                ? 'font-bold bg-matcha text-ink border border-matcha-dark'
+                : 'font-medium bg-white border border-hanji-line hover:bg-hanji'
+            }`;
+          });
+          syncPoemToCanvas();
+        });
+      });
+
+      // 슬라이더
+      document.getElementById('titleSizeSlider').addEventListener('input', (e) => {
+        state.titleSize = Number(e.target.value);
+        document.getElementById('titleSizeValue').textContent = `${state.titleSize}px`;
+        syncPoemToCanvas();
+      });
+      document.getElementById('bodySizeSlider').addEventListener('input', (e) => {
+        state.bodySize = Number(e.target.value);
+        document.getElementById('bodySizeValue').textContent = `${state.bodySize}px`;
+        syncPoemToCanvas();
+      });
+      document.getElementById('lineHeightSlider').addEventListener('input', (e) => {
+        state.lineHeight = Number(e.target.value);
+        document.getElementById('lineHeightValue').textContent = state.lineHeight.toFixed(1);
+        syncPoemToCanvas();
+      });
+      document.getElementById('letterSpacingSlider').addEventListener('input', (e) => {
+        state.letterSpacing = Number(e.target.value);
+        document.getElementById('letterSpacingValue').textContent = `${state.letterSpacing.toFixed(2)}em`;
+        syncPoemToCanvas();
+      });
+
+      // 문단 정렬 버튼
+      document.querySelectorAll('.align-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.textAlign = btn.dataset.align;
+          document.querySelectorAll('.align-btn').forEach(b => {
+            const active = b.dataset.align === state.textAlign;
+            b.className = `align-btn p-1.5 rounded-md transition-all ${
+              active ? 'bg-white text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
+            }`;
+          });
+          syncPoemToCanvas();
+        });
+      });
+
+      // 글자 색상 팔레트
+      document.querySelectorAll('.text-color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.textColor = btn.dataset.textcolor;
+          document.querySelectorAll('.text-color-btn').forEach(b => {
+            b.classList.toggle('ring-2', b === btn);
+            b.classList.toggle('ring-offset-1', b === btn);
+            b.classList.toggle('ring-terracotta', b === btn);
+          });
+          syncPoemToCanvas();
+        });
+      });
+
+      // 시 위치 초기화
+      document.getElementById('resetTextPosBtn').addEventListener('click', () => {
+        const overlay = document.getElementById('poemTextOverlay');
+        overlay.style.left = '38px';
+        overlay.style.top = '32px';
+        const sig = document.getElementById('poetSignatureBox');
+        sig.style.left = 'auto';
+        sig.style.top = 'auto';
+        sig.style.right = '14px';
+        sig.style.bottom = '14px';
+        showToast('시와 낙관 위치를 기본 자리로 정렬했어요.');
+      });
+
+      // 시화 배경 테마 프리셋 & 나만의 배경 이미지/단색 추가
+      const innerStage = document.getElementById('artworkInnerStage');
+      const customBgImgEl = document.getElementById('customBgImageEl');
+      const removeCustomBgBtn = document.getElementById('removeCustomBgBtn');
+      const customBgOpacityRow = document.getElementById('customBgOpacityRow');
+
+      const ALL_THEME_CLASSES = [
+        'theme-white',
+        'theme-hanji',
+        'theme-watercolor',
+        'theme-sunset',
+        'theme-starlight',
+        'theme-manuscript',
+        'theme-matcha'
+      ];
+
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          innerStage.style.backgroundColor = '';
+          innerStage.style.backgroundImage = '';
+          innerStage.classList.remove(...ALL_THEME_CLASSES);
+
+          state.theme = btn.dataset.theme;
+          state.showWaveArtBg = btn.dataset.wave === 'true';
+          innerStage.classList.add(state.theme);
+
+          renderBackgroundWaveArt(state.showWaveArtBg);
+
+          if (btn.dataset.dark === 'true') {
+            state.textColor = '#FAF7F2';
+          } else if (state.textColor === '#FAF7F2') {
+            state.textColor = '#2C2A29';
+          }
+
+          document.querySelectorAll('.theme-btn').forEach(b => {
+            const active = b === btn;
+            b.classList.toggle('border-2', active);
+            b.classList.toggle('border-matcha-dark', active);
+            b.classList.toggle('border', !active);
+            b.classList.toggle('border-hanji-line', !active);
+          });
+
+          syncPoemToCanvas();
+        });
+      });
+
+      document.getElementById('customBgColorPicker').addEventListener('input', (e) => {
+        const pickedColor = e.target.value;
+        innerStage.classList.remove(...ALL_THEME_CLASSES);
+        renderBackgroundWaveArt(false);
+        innerStage.style.backgroundImage = 'none';
+        innerStage.style.backgroundColor = pickedColor;
+
+        document.querySelectorAll('.theme-btn').forEach(b => {
+          b.classList.remove('border-2', 'border-matcha-dark');
+          b.classList.add('border', 'border-hanji-line');
+        });
+      });
+
+      document.getElementById('uploadBgImageBtn').addEventListener('click', () => {
+        document.getElementById('customBgImageInput').click();
+      });
+
+      document.getElementById('customBgImageInput').addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          state.customBgDataUrl = ev.target.result;
+          customBgImgEl.src = state.customBgDataUrl;
+          customBgImgEl.classList.remove('hidden');
+          removeCustomBgBtn.classList.remove('hidden');
+          customBgOpacityRow.classList.remove('hidden');
+          renderBackgroundWaveArt(false);
+          showToast('나만의 배경 이미지를 시화 바탕에 적용했어요!');
+        };
+        reader.readAsDataURL(file);
+      });
+
+      removeCustomBgBtn.addEventListener('click', () => {
+        state.customBgDataUrl = null;
+        customBgImgEl.src = '';
+        customBgImgEl.classList.add('hidden');
+        removeCustomBgBtn.classList.add('hidden');
+        customBgOpacityRow.classList.add('hidden');
+        document.getElementById('customBgImageInput').value = '';
+        showToast('업로드한 배경 사진을 제거했어요.');
+      });
+
+      document.getElementById('bgOpacitySlider').addEventListener('input', (e) => {
+        const val = Number(e.target.value);
+        state.customBgOpacity = val / 100;
+        customBgImgEl.style.opacity = state.customBgOpacity;
+        document.getElementById('bgOpacityValue').textContent = `${val}%`;
+      });
+
+      // 드로잉 브러시 도구 선택 (패널 도구함 & 스테이지 하단 미니 퀵바 동시 연동)
+      function selectDrawingTool(toolName) {
+        state.tool = toolName;
+        document.querySelectorAll('.draw-tool-btn').forEach(b => {
+          const active = b.dataset.tool === toolName;
+          b.className = `draw-tool-btn p-2.5 rounded-xl flex flex-col items-center gap-1 transition-all duration-300 ${
+            active
+              ? 'border-2 border-matcha-dark bg-matcha-light/60'
+              : 'border border-hanji-line bg-white hover:bg-hanji'
+          }`;
+        });
+        document.querySelectorAll('.quick-tool-btn').forEach(b => {
+          const active = b.dataset.tool === toolName;
+          b.className = `quick-tool-btn p-1.5 rounded-full transition-all ${
+            active ? 'bg-matcha text-ink shadow-sm' : 'text-ink-muted hover:text-ink'
+          }`;
+        });
+        if (toolName === 'eraser') {
+          showToast('그림 지우개: 배경과 시 글씨는 남겨두고 내가 그린 선만 지웁니다.');
+        }
+      }
+
+      document.querySelectorAll('.draw-tool-btn, .quick-tool-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectDrawingTool(btn.dataset.tool));
+      });
+
+      // 브러시 색상 팔레트 & 컬러 피커
+      document.querySelectorAll('.brush-color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.brushColor = btn.dataset.brushcolor;
+          document.getElementById('customBrushColorPicker').value = state.brushColor;
+          if (state.tool === 'eraser') {
+            selectDrawingTool('watercolor');
+          }
+          document.querySelectorAll('.brush-color-btn').forEach(b => {
+            b.classList.toggle('ring-2', b === btn);
+            b.classList.toggle('ring-offset-1', b === btn);
+            b.classList.toggle('ring-terracotta', b === btn);
+          });
+        });
+      });
+
+      document.getElementById('customBrushColorPicker').addEventListener('input', (e) => {
+        state.brushColor = e.target.value;
+        if (state.tool === 'eraser') {
+          selectDrawingTool('watercolor');
+        }
+      });
+
+      document.getElementById('brushSizeSlider').addEventListener('input', (e) => {
+        state.brushSize = Number(e.target.value);
+        document.getElementById('brushSizeValue').textContent = `${state.brushSize}px`;
+      });
+
+      // Undo / Redo / 내 그림만 지우기
+      document.getElementById('headerUndoBtn').addEventListener('click', undoCanvas);
+      document.getElementById('panelUndoBtn').addEventListener('click', undoCanvas);
+      document.getElementById('headerRedoBtn').addEventListener('click', redoCanvas);
+      document.getElementById('panelRedoBtn').addEventListener('click', redoCanvas);
+
+      function clearUserDrawingOnly() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        saveCanvasState();
+        showToast('내가 그린 그림만 깨끗하게 지웠어요! (배경과 시 글씨는 그대로 유지됩니다)');
+      }
+      document.getElementById('clearCanvasBtn').addEventListener('click', clearUserDrawingOnly);
+      document.getElementById('stageClearDrawingQuickBtn').addEventListener('click', clearUserDrawingOnly);
+
+      // 키보드 단축키 (Ctrl+Z, Ctrl+Y)
+      window.addEventListener('keydown', (e) => {
+        if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+          e.preventDefault();
+          undoCanvas();
+        } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+          e.preventDefault();
+          redoCanvas();
+        }
+      });
+
+      document.getElementById('resetAllBtn').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        saveCanvasState();
+        document.getElementById('resetTextPosBtn').click();
+        showToast('내가 그린 그림과 시 위치를 초기 상태로 정돈했어요.');
+      });
+
+      document.getElementById('exportPngBtn').addEventListener('click', exportArtworkAsPng);
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
