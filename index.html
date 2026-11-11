@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>순우리말 시 공방 — 소중한 우리말 시화 아틀리에 (출처: 하모쌤)</title>
 
   <!-- Tailwind CSS CDN -->
@@ -124,16 +124,76 @@
       font-family: 'CustomFont4', 'Nanum Brush Script', cursive;
     }
 
-    /* 기본 UI 스타일 (모바일/태블릿 100dvh 완벽 대응) */
+    /* 기본 UI 스타일 (모바일/태블릿/PC 반응형 & 터치 스크롤 완벽 지원) */
     html, body {
-      height: 100%;
+      min-height: 100%;
       height: 100dvh;
       background-color: #FAF7F2;
       color: #2C2A29;
       font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
-      overflow: hidden;
-      user-select: none;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    /* 태블릿(가로/세로) 및 데스크톱: 좌우 2단 분할 스튜디오 레이아웃 */
+    @media (min-width: 680px), ((orientation: landscape) and (min-width: 520px)) {
+      body {
+        overflow: hidden;
+      }
+      #mainWorkspace {
+        display: flex;
+        flex-direction: row !important;
+        height: calc(100dvh - 52px);
+        overflow: hidden;
+      }
+      #leftControlPanel {
+        width: clamp(280px, 37vw, 440px) !important;
+        height: 100% !important;
+        border-bottom: 0 !important;
+        border-right: 1px solid #E2D9C8 !important;
+      }
+      #rightStageArea {
+        flex: 1 1 0% !important;
+        height: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+      }
+    }
+
+    /* 스마트폰 세로 모드 (좁은 화면): 상하 자연스러운 스크롤 허용 */
+    @media (max-width: 679px) and (orientation: portrait) {
+      html, body {
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto !important;
+      }
+      #mainWorkspace {
+        display: flex;
+        flex-direction: column !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #leftControlPanel {
+        width: 100% !important;
+        height: 46dvh !important;
+        min-height: 300px;
+      }
+      #rightStageArea {
+        width: 100% !important;
+        height: 64dvh !important;
+        min-height: 440px;
+      }
+    }
+
+    /* [캔버스 크게] 모드 활성화 시 좌측 패널 완전히 숨김 (모든 기기 공통) */
+    #leftControlPanel.panel-collapsed {
+      display: none !important;
+    }
+
+    /* 터치 기기에서 패널 내부 스크롤이 매끄럽게 작동하도록 보장 */
+    #leftPanelScroll,
+    #stageAbsoluteArea {
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x pan-y;
     }
 
     /* 커스텀 스크롤바 */
@@ -398,8 +458,8 @@
 
     <!-- 우측: 모바일/태블릿 뷰 전환 버튼 & Undo/Redo & 저장하기 -->
     <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-      <!-- 모바일/태블릿 전용: [캔버스 크게 보기] 토글 버튼 -->
-      <button id="mobileFocusCanvasBtn" type="button" class="lg:hidden px-2.5 py-1.5 rounded-md bg-[#4E5B47] text-white text-xs font-bold shadow-sm flex items-center gap-1 transition-all">
+      <!-- 모든 기기에서 언제든 좌측 도구 패널을 접고 캔버스를 크게 볼 수 있는 토글 버튼 -->
+      <button id="mobileFocusCanvasBtn" type="button" class="px-2.5 py-1.5 rounded-md bg-[#4E5B47] text-white text-xs font-bold shadow-sm flex items-center gap-1 transition-all">
         <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
         <span id="mobileFocusBtnLabel">캔버스 크게</span>
       </button>
@@ -469,7 +529,7 @@
     </aside>
 
     <!-- 2) 좌측(모바일은 상단/하단 전환 가능) 스튜디오 컨트롤 패널 -->
-    <section id="leftControlPanel" class="w-full lg:w-[440px] xl:w-[480px] bg-hanji-light border-b lg:border-b-0 lg:border-r border-hanji-line flex flex-col h-[44%] sm:h-[46%] lg:h-full shrink-0 overflow-hidden transition-all duration-300">
+    <section id="leftControlPanel" class="w-full lg:w-[430px] xl:w-[470px] bg-hanji-light border-b lg:border-b-0 lg:border-r border-hanji-line flex flex-col min-h-0 shrink-0 overflow-hidden transition-all duration-300">
 
       <!-- 상단 탭 네비게이션 바 (모바일/태블릿에서도 터치하기 쉬운 4버튼 구성) -->
       <div class="px-3 sm:px-5 pt-2.5 pb-2 border-b border-hanji-line bg-hanji/60 flex items-center gap-1 shrink-0">
@@ -489,7 +549,7 @@
       </div>
 
       <!-- 스크롤 가능한 탭 컨텐츠 컨테이너 -->
-      <div id="leftPanelScroll" class="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-6 select-text">
+      <div id="leftPanelScroll" class="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 py-4 space-y-6 select-text">
 
         <!-- ==================================================================
              [1탭: 고유어 보석함 (개수 제한 없이 자유롭게 선택 가능)]
@@ -1029,25 +1089,13 @@
       </div>
     </section>
 
-    <!-- 3) 우측(모바일은 하단/전체화면) 메인 스테이지 (기기 크기에 맞춰 비율 자동 스케일링!) -->
-    <main id="rightStageArea" class="flex-1 stage-hanji-bg relative flex flex-col items-center justify-between p-2 sm:p-4 lg:p-6 overflow-hidden">
+    <!-- 3) 우측 메인 스테이지 (기기 크기에 맞춰 비율 자동 스케일링 + 수동 확대/축소 및 스크롤 지원!) -->
+    <main id="rightStageArea" class="flex-1 min-h-0 min-w-0 stage-hanji-bg relative flex flex-col items-center justify-between p-2 sm:p-3 lg:p-5 overflow-hidden">
 
-      <!-- 상단 안내 & 빠른 비율 전환 바 -->
-      <div class="w-full flex flex-wrap items-center justify-between gap-2 z-20 px-1">
-        <div class="hidden sm:flex items-center gap-2 text-[11px] text-ink-muted bg-hanji-light/90 backdrop-blur-sm px-3 py-1 rounded-full border border-hanji-line shadow-sm">
-          <span class="flex items-center gap-1">
-            <i data-lucide="move" class="w-3 h-3 text-terracotta"></i>
-            <strong>시 글상자</strong> 드래그 이동
-          </span>
-          <span class="text-hanji-line">|</span>
-          <span class="flex items-center gap-1">
-            <i data-lucide="shield-check" class="w-3 h-3 text-matcha-dark"></i>
-            <strong>지우개</strong>는 내 그림만 지움
-          </span>
-        </div>
-
+      <!-- 상단 안내 & 빠른 비율 전환 & 줌 조절 바 -->
+      <div class="w-full flex flex-wrap items-center justify-between gap-1.5 z-20 px-1 shrink-0">
         <!-- 스테이지 상단에서도 바로 비율을 바꿀 수 있는 미니 비율 스위치 -->
-        <div class="flex items-center gap-1 bg-hanji-light/90 backdrop-blur-sm p-1 rounded-full border border-hanji-line shadow-sm mx-auto sm:mx-0">
+        <div class="flex flex-wrap items-center gap-1 bg-hanji-light/95 backdrop-blur-sm p-1 rounded-full border border-hanji-line shadow-sm">
           <button type="button" data-ratio="portrait" class="ratio-btn px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-matcha text-ink transition-all">
             세로형(2:3)
           </button>
@@ -1061,15 +1109,30 @@
             백지 전환
           </button>
         </div>
+
+        <!-- 캔버스 크기 축소 / 화면맞춤 / 확대 컨트롤 -->
+        <div class="flex items-center gap-1 bg-hanji-light/95 backdrop-blur-sm px-2 py-1 rounded-full border border-hanji-line shadow-sm">
+          <button type="button" id="zoomOutCanvasBtn" class="w-6 h-6 rounded-full bg-white hover:bg-hanji border border-hanji-line text-xs font-bold text-ink flex items-center justify-center" title="캔버스 축소">
+            -
+          </button>
+          <button type="button" id="zoomResetCanvasBtn" class="px-2 py-0.5 rounded-full text-[11px] font-bold text-matcha-deep hover:bg-matcha-light/50 transition-all" title="화면에 딱 맞게 자동 조절">
+            화면맞춤
+          </button>
+          <button type="button" id="zoomInCanvasBtn" class="w-6 h-6 rounded-full bg-white hover:bg-hanji border border-hanji-line text-xs font-bold text-ink flex items-center justify-center" title="캔버스 확대">
+            +
+          </button>
+        </div>
       </div>
 
-      <!-- 중앙: 자동 비율 스케일링 래퍼 (모바일/태블릿/PC 어떤 화면에서도 잘리지 않고 쏙 들어감) -->
-      <div id="stageScaleViewport" class="flex-1 w-full flex items-center justify-center overflow-hidden relative my-1">
-        <div
-          id="poemArtworkFrame"
-          class="poem-frame-shadow bg-[#FDFBF7] p-3.5 sm:p-4 rounded-[4px] relative select-none shrink-0"
-          style="width: 380px; height: 570px;"
-        >
+      <!-- 중앙: 절대 위치 기반 뷰포트 (내부 캔버스 크기가 부모 영역을 밀어내지 않아 어떤 태블릿에서도 찌그러지지 않음!) -->
+      <div id="stageScaleViewport" class="flex-1 min-h-[240px] w-full relative overflow-hidden my-1">
+        <div id="stageAbsoluteArea" class="absolute inset-0 overflow-auto flex p-2">
+          <div id="frameScaleWrapper" class="relative m-auto shrink-0" style="width: 380px; height: 570px;">
+            <div
+              id="poemArtworkFrame"
+              class="poem-frame-shadow bg-[#FDFBF7] p-3.5 sm:p-4 rounded-[4px] absolute top-0 left-0 select-none"
+              style="width: 380px; height: 570px; transform-origin: top left;"
+            >
           <div
             id="artworkInnerStage"
             class="theme-hanji relative w-full h-full border border-[#D8CFC0] overflow-hidden"
@@ -1143,11 +1206,13 @@
             </div>
 
           </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- 하단: 모바일/태블릿 그리기 집중 모드용 미니 퀵 툴바 & 출처: 하모쌤 표기 -->
-      <div class="w-full flex items-center justify-between gap-2 z-20 px-1">
+      <div class="w-full flex items-center justify-between gap-2 z-20 px-1 shrink-0">
         <!-- 모바일/태블릿에서도 바로 브러시/지우개를 바꿀 수 있는 미니 퀵바 -->
         <div class="flex items-center gap-1 bg-hanji-light/95 backdrop-blur-sm px-2.5 py-1 rounded-full border border-hanji-line shadow-sm">
           <button type="button" data-tool="pencil" class="quick-tool-btn p-1.5 rounded-full text-ink-muted hover:text-ink transition-all" title="연필">
@@ -1227,6 +1292,7 @@
       mobileFocusCanvas: false,
       ratioKey: 'portrait',
       currentScale: 1,
+      userZoom: 1,
 
       // 개수 제한 없이 자유롭게 선택 가능!
       selectedWords: ['산들바람', '윤슬', '시나브로', '해거름', '다솜'],
@@ -1287,22 +1353,33 @@
      **************************************************************************/
     function fitArtworkFrameToViewport() {
       const viewport = document.getElementById('stageScaleViewport');
+      const wrapper = document.getElementById('frameScaleWrapper');
       const frame = document.getElementById('poemArtworkFrame');
-      if (!viewport || !frame) return;
+      if (!viewport || !wrapper || !frame) return;
 
       const preset = CANVAS_RATIOS[state.ratioKey];
-      const availW = Math.max(200, viewport.clientWidth - 16);
-      const availH = Math.max(180, viewport.clientHeight - 16);
+      const availW = Math.max(180, viewport.clientWidth - 20);
+      const availH = Math.max(180, viewport.clientHeight - 20);
 
       const scaleX = availW / preset.frameW;
       const scaleY = availH / preset.frameH;
-      // 기기 화면이 작으면 축소하고, 큰 태블릿/모니터에서는 최대 1.18배까지 여유 있게 표시
-      const scale = Math.min(scaleX, scaleY, 1.18);
+      const baseScale = Math.min(scaleX, scaleY, 1.15);
+      const finalScale = Math.max(0.32, Math.min(2.2, baseScale * (state.userZoom || 1)));
 
-      state.currentScale = scale;
+      state.currentScale = finalScale;
+
+      wrapper.style.width = `${Math.round(preset.frameW * finalScale)}px`;
+      wrapper.style.height = `${Math.round(preset.frameH * finalScale)}px`;
+
       frame.style.width = `${preset.frameW}px`;
       frame.style.height = `${preset.frameH}px`;
-      frame.style.transform = `scale(${scale})`;
+      frame.style.transformOrigin = 'top left';
+      frame.style.transform = `scale(${finalScale})`;
+
+      const resetBtn = document.getElementById('zoomResetCanvasBtn');
+      if (resetBtn) {
+        resetBtn.textContent = state.userZoom === 1 ? '화면맞춤' : `${Math.round(state.userZoom * 100)}%`;
+      }
     }
 
     // 캔버스 비율 변경 (세로 2:3 / 정사각 1:1 / 가로 4:3) — 기존 그린 그림 유지!
@@ -1416,11 +1493,11 @@
       const btn = document.getElementById('mobileFocusCanvasBtn');
 
       if (state.mobileFocusCanvas) {
-        leftPanel.classList.add('hidden', 'lg:flex');
+        leftPanel.classList.add('panel-collapsed');
         label.textContent = '도구 패널 열기';
         btn.classList.replace('bg-[#4E5B47]', 'bg-terracotta');
       } else {
-        leftPanel.classList.remove('hidden');
+        leftPanel.classList.remove('panel-collapsed');
         label.textContent = '캔버스 크게';
         btn.classList.replace('bg-terracotta', 'bg-[#4E5B47]');
       }
@@ -2048,14 +2125,19 @@
      **************************************************************************/
     async function exportArtworkAsPng() {
       const frame = document.getElementById('poemArtworkFrame');
+      const wrapper = document.getElementById('frameScaleWrapper');
       const exportBtn = document.getElementById('exportPngBtn');
-      const prevTransform = frame.style.transform;
+      const preset = CANVAS_RATIOS[state.ratioKey];
 
       try {
         exportBtn.disabled = true;
         exportBtn.innerHTML = `<span>인화 중...</span>`;
         frame.classList.add('capturing-clean');
         // 캡처 순간에는 스케일을 1로 잠시 복원해 언제나 선명한 원본 해상도(scale: 2)로 저장
+        if (wrapper) {
+          wrapper.style.width = `${preset.frameW}px`;
+          wrapper.style.height = `${preset.frameH}px`;
+        }
         frame.style.transform = 'scale(1)';
 
         if (document.fonts && document.fonts.ready) {
@@ -2082,8 +2164,8 @@
         console.error(err);
         showToast('이미지 저장 중 문제가 발생했습니다.');
       } finally {
-        frame.style.transform = prevTransform;
         frame.classList.remove('capturing-clean');
+        fitArtworkFrameToViewport();
         exportBtn.disabled = false;
         exportBtn.innerHTML = `<i data-lucide="download" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i><span>저장하기</span>`;
         lucide.createIcons();
@@ -2121,9 +2203,24 @@
       makeElementDraggable(document.getElementById('poemTextOverlay'), stage);
       makeElementDraggable(document.getElementById('poetSignatureBox'), stage);
 
-      // 모바일/태블릿 [캔버스 크게 보기] 버튼
+      // 모바일/태블릿/PC [캔버스 크게 보기 / 도구 패널 접기] 버튼
       document.getElementById('mobileFocusCanvasBtn').addEventListener('click', () => {
         toggleMobileCanvasFocus();
+      });
+
+      // 캔버스 수동 축소 / 화면맞춤 / 확대 버튼
+      document.getElementById('zoomOutCanvasBtn').addEventListener('click', () => {
+        state.userZoom = Math.max(0.5, Number((state.userZoom - 0.15).toFixed(2)));
+        fitArtworkFrameToViewport();
+      });
+      document.getElementById('zoomResetCanvasBtn').addEventListener('click', () => {
+        state.userZoom = 1;
+        fitArtworkFrameToViewport();
+        showToast('시화 캔버스를 기기 화면 크기에 딱 맞췄어요.');
+      });
+      document.getElementById('zoomInCanvasBtn').addEventListener('click', () => {
+        state.userZoom = Math.min(2.0, Number((state.userZoom + 0.15).toFixed(2)));
+        fitArtworkFrameToViewport();
       });
 
       // 캔버스 비율 선택 버튼 (세로 2:3 / 정사각 1:1 / 가로 4:3)
