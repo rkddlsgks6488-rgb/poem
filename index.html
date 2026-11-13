@@ -631,22 +631,79 @@
              [2탭: 시인의 책상 (글쓰기 에디터)]
              ================================================================== -->
         <div id="section-desk" class="tab-section space-y-4">
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
             <div>
               <h2 class="text-base sm:text-lg font-bold text-ink">시인의 책상</h2>
               <p class="text-xs text-ink-muted mt-0.5">
                 고른 순우리말을 시 속에 자연스럽게 녹여 나만의 시를 지어 보세요.
               </p>
             </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <button id="clearPoemTextBtn" title="시 제목과 본문 글씨만 깨끗하게 지웁니다" class="text-xs px-2.5 py-1.5 rounded-lg bg-white hover:bg-red-50 text-ink-muted hover:text-seal-red border border-hanji-line transition-all duration-300 flex items-center gap-1">
-                <i data-lucide="eraser" class="w-3.5 h-3.5"></i>
-                <span>글씨 지우기</span>
+            <div class="flex items-center gap-1.5 shrink-0 flex-wrap">
+              <button id="sensoryHelperToggleBtn" type="button" title="오감(색깔, 소리, 촉감) 질문과 표현 힌트를 엽니다" class="text-xs px-2.5 py-1.5 rounded-lg bg-terracotta text-white hover:bg-terracotta-dark font-bold shadow-sm transition-all duration-300 flex items-center gap-1">
+                <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i>
+                <span>감성 질문 도우미</span>
               </button>
-              <button id="inspirePoemBtn" class="text-xs px-2.5 py-1.5 rounded-lg bg-hanji hover:bg-hanji-deep text-ink-muted hover:text-ink border border-hanji-line transition-all duration-300 flex items-center gap-1">
+              <button id="inspirePoemBtn" type="button" class="text-xs px-2.5 py-1.5 rounded-lg bg-hanji hover:bg-hanji-deep text-ink-muted hover:text-ink border border-hanji-line transition-all duration-300 flex items-center gap-1">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5 text-terracotta"></i>
                 <span>시문 영감</span>
               </button>
+              <button id="clearPoemTextBtn" type="button" title="시 제목과 본문 글씨만 깨끗하게 지웁니다" class="text-xs px-2.5 py-1.5 rounded-lg bg-white hover:bg-red-50 text-ink-muted hover:text-seal-red border border-hanji-line transition-all duration-300 flex items-center gap-1">
+                <i data-lucide="eraser" class="w-3.5 h-3.5"></i>
+                <span>글씨 지우기</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 💡 감성 질문 도우미 (오감: 색깔, 소리, 촉감, 마음 힌트 상자) -->
+          <div id="sensoryHelperBox" class="p-3.5 rounded-2xl bg-gradient-to-br from-[#FFFDF9] to-[#F7EFE4] border-2 border-terracotta/40 shadow-sm space-y-2.5 transition-all duration-300">
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold">💡</span>
+                <span class="text-xs font-bold text-ink">감성 질문 도우미 <span class="text-terracotta font-semibold">(오감 힌트)</span></span>
+              </div>
+              <div class="flex items-center gap-1">
+                <button id="nextSensoryQuestionBtn" type="button" class="text-[11px] px-2 py-0.5 rounded-md bg-white hover:bg-hanji-deep text-terracotta-dark border border-terracotta/30 font-semibold transition-all">
+                  🎲 다른 질문 보기
+                </button>
+                <button id="closeSensoryHelperBtn" type="button" class="text-[11px] px-1.5 py-0.5 rounded-md text-ink-muted hover:text-ink" title="접기">
+                  접기 ▲
+                </button>
+              </div>
+            </div>
+
+            <!-- 오감 카테고리 탭 (색깔 / 소리 / 촉감 / 마음·비유) -->
+            <div class="grid grid-cols-4 gap-1 bg-hanji/90 p-1 rounded-xl border border-hanji-line">
+              <button type="button" data-sense="color" class="sensory-tab-btn py-1.5 px-1 rounded-lg text-[11px] font-bold bg-white text-terracotta-dark shadow-sm transition-all">
+                🎨 색깔·모습
+              </button>
+              <button type="button" data-sense="sound" class="sensory-tab-btn py-1.5 px-1 rounded-lg text-[11px] font-semibold text-ink-muted hover:text-ink transition-all">
+                🎵 소리
+              </button>
+              <button type="button" data-sense="touch" class="sensory-tab-btn py-1.5 px-1 rounded-lg text-[11px] font-semibold text-ink-muted hover:text-ink transition-all">
+                🤲 촉감·온도
+              </button>
+              <button type="button" data-sense="heart" class="sensory-tab-btn py-1.5 px-1 rounded-lg text-[11px] font-semibold text-ink-muted hover:text-ink transition-all">
+                💛 마음·비유
+              </button>
+            </div>
+
+            <!-- 선택된 오감 질문 표시 영역 -->
+            <div class="p-2.5 rounded-xl bg-white/90 border border-hanji-line space-y-1.5">
+              <div id="sensoryQuestionTitle" class="text-xs font-bold text-terracotta-dark leading-snug">
+                🎨 [색깔·모습 질문] 내가 고른 순우리말은 어떤 빛깔이나 모양을 닮았나요?
+              </div>
+              <p id="sensoryQuestionSub" class="text-[11px] text-ink-muted leading-relaxed">
+                눈을 감고 장면을 떠올려 보세요. 아래 표현 힌트를 누르면 시 본문에 바로 들어갑니다!
+              </p>
+            </div>
+
+            <!-- 클릭하면 본문에 들어가는 오감 시적 표현 칩 -->
+            <div class="space-y-1">
+              <div class="text-[10px] font-semibold text-ink-muted flex items-center justify-between">
+                <span>✨ 터치하면 시 본문에 쏙 들어가는 오감 표현 힌트</span>
+                <span id="sensoryTargetWordLabel" class="text-terracotta font-bold"></span>
+              </div>
+              <div id="sensoryHintChips" class="flex flex-wrap gap-1.5"></div>
             </div>
           </div>
 
@@ -1588,6 +1645,9 @@
         headerBadges.innerHTML = `<span class="text-xs text-ink-muted">단어를 선택해 주세요</span>`;
         deskBadges.innerHTML = `<span class="text-xs text-ink-faint">[① 보석함]에서 마음에 드는 단어를 골라 보세요.</span>`;
         document.getElementById('wordDetectSummary').textContent = '선택된 목표 단어가 없습니다';
+        if (typeof renderSensoryHelper === 'function') {
+          renderSensoryHelper();
+        }
         return;
       }
 
@@ -1650,6 +1710,9 @@
       } else {
         summaryEl.textContent = `선택한 ${count}개 중 ${usedCount}개 사용 완료`;
         summaryEl.className = 'text-[11px] font-semibold text-matcha-deep';
+      }
+      if (typeof renderSensoryHelper === 'function') {
+        renderSensoryHelper();
       }
     }
 
@@ -2347,6 +2410,159 @@
         renderWordsAndBasket();
         showToast(`'${p.title}' 예시 시문을 불러왔어요!`);
       });
+
+      // 💡 감성 질문 도우미 (오감: 색깔·모습 / 소리 / 촉감·온도 / 마음·비유)
+      const SENSORY_HELPER_DATA = {
+        color: {
+          badge: '🎨 색깔·모습(시각)',
+          questions: [
+            (w) => `🎨 내가 고른 '${w}'은(는) 어떤 색깔과 빛깔을 닮았나요?`,
+            (w) => `🎨 '${w}'을(를) 가만히 바라보면 어떤 모양이나 풍경이 떠오르나요?`,
+            (w) => `🎨 아침 햇살이나 저녁 노을 속에서 '${w}'은(는) 어떻게 반짝일까요?`
+          ],
+          sub: '눈앞에 그림을 그리듯 색깔과 모양을 떠올려 보세요. 아래 표현을 누르면 본문에 쏙 들어갑니다!',
+          chips: [
+            '금빛으로 반짝이는 ',
+            '연분홍빛으로 물드는 ',
+            '수채화처럼 은은히 번지는 ',
+            '하얀 솜사탕처럼 피어오르는 ',
+            '푸른 밤하늘에 수놓아진 ',
+            '보석처럼 영롱하게 빛나는 '
+          ]
+        },
+        sound: {
+          badge: '🎵 소리(청각)',
+          questions: [
+            (w) => `🎵 귀를 기울이면 '${w}'에서 어떤 고운 소리가 들리는 것 같나요?`,
+            (w) => `🎵 '${w}'이(가) 내 귓가에 조용히 속삭인다면 무슨 말을 건넬까요?`,
+            (w) => `🎵 조용한 교실이나 자연 속에서 '${w}'은(는) 어떤 악기 소리를 닮았나요?`
+          ],
+          sub: '가만히 귀를 기울여 보세요. 의성어나 속삭이는 소리를 넣으면 시가 살아 움직여요!',
+          chips: [
+            '토독토독 귓가에 속삭이는 ',
+            '사르르 풀잎 스치는 소리에 ',
+            '도란도란 정겨운 노래처럼 ',
+            '찰랑찰랑 맑은 웃음소리로 ',
+            '사각사각 연필 소리 너머로 ',
+            '조용히 내 이름을 불러 주는 '
+          ]
+        },
+        touch: {
+          badge: '🤲 촉감·온도(촉각)',
+          questions: [
+            (w) => `🤲 손끝이나 뺨에 '${w}'이(가) 닿는다면 어떤 느낌과 온도일까요?`,
+            (w) => `🤲 '${w}'은(는) 포근한 이불 같나요, 아니면 시원한 바람 같나요?`,
+            (w) => `🤲 두 손으로 '${w}'을(를) 살포시 감싸 안으면 어떤 기분이 들까요?`
+          ],
+          sub: '따뜻함, 시원함, 부드러움처럼 피부에 닿는 느낌을 시 구절로 적어 보세요!',
+          chips: [
+            '엄마 품처럼 포근하게 ',
+            '볼을 살며시 간지럽히는 ',
+            '따스한 햇살 한 스푼처럼 ',
+            '시원한 물결이 손끝에 닿듯 ',
+            '보들보들 솜털처럼 내려앉아 ',
+            '내 두 손을 따뜻하게 감싸 주는 '
+          ]
+        },
+        heart: {
+          badge: '💛 마음·비유(심상)',
+          questions: [
+            (w) => `💛 '${w}'을(를) 보면 누구의 얼굴이나 어떤 소중한 추억이 떠오르나요?`,
+            (w) => `💛 내 마음속에 '${w}'이(가) 찾아오면 기분이 어떻게 달라지나요?`,
+            (w) => `💛 친구나 가족에게 '${w}'을(를) 선물한다면 어떤 마음을 담고 싶나요?`
+          ],
+          sub: '내 마음과 소중한 사람을 순우리말에 빗대어 표현하면 더욱 감동적인 시가 완성돼요!',
+          chips: [
+            '내 마음속에 가만히 피어나는 ',
+            '오래도록 간직하고 싶은 ',
+            '너의 환한 미소를 닮은 ',
+            '시나브로 깊어지는 우리 마음 ',
+            '그리운 날에 살며시 찾아오는 ',
+            '세상에서 가장 소중한 선물처럼 '
+          ]
+        }
+      };
+
+      let currentSenseKey = 'color';
+      let currentSenseQuestionIdx = 0;
+
+      window.renderSensoryHelper = function renderSensoryHelper() {
+        const titleEl = document.getElementById('sensoryQuestionTitle');
+        const subEl = document.getElementById('sensoryQuestionSub');
+        const chipsEl = document.getElementById('sensoryHintChips');
+        const wordLabelEl = document.getElementById('sensoryTargetWordLabel');
+        if (!titleEl || !subEl || !chipsEl) return;
+
+        const targetWord = state.selectedWords.length > 0 ? state.selectedWords[0] : '순우리말';
+        if (wordLabelEl) {
+          wordLabelEl.textContent = state.selectedWords.length > 0
+            ? `선택 단어: ${state.selectedWords.slice(0, 3).join(', ')}${state.selectedWords.length > 3 ? ' 외' : ''}`
+            : '단어를 고르면 맞춤 질문이 나와요';
+        }
+
+        const data = SENSORY_HELPER_DATA[currentSenseKey] || SENSORY_HELPER_DATA.color;
+        const qFn = data.questions[currentSenseQuestionIdx % data.questions.length];
+        titleEl.textContent = qFn(targetWord);
+        subEl.textContent = data.sub;
+
+        chipsEl.innerHTML = '';
+        data.chips.forEach(phrase => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'px-2.5 py-1 rounded-full bg-white hover:bg-terracotta hover:text-white text-[11px] font-semibold text-ink border border-hanji-line hover:border-terracotta transition-all duration-200 shadow-xs';
+          btn.textContent = `+ ${phrase.trim()}`;
+          btn.addEventListener('click', () => {
+            insertWordIntoTextarea(phrase);
+            showToast(`'${phrase.trim()}' 표현을 시 본문에 넣었어요!`);
+          });
+          chipsEl.appendChild(btn);
+        });
+      };
+
+      const sensoryBox = document.getElementById('sensoryHelperBox');
+      const sensoryToggleBtn = document.getElementById('sensoryHelperToggleBtn');
+      const closeSensoryBtn = document.getElementById('closeSensoryHelperBtn');
+      const nextSensoryBtn = document.getElementById('nextSensoryQuestionBtn');
+
+      if (sensoryToggleBtn && sensoryBox) {
+        sensoryToggleBtn.addEventListener('click', () => {
+          const isHidden = sensoryBox.classList.contains('hidden');
+          if (isHidden) {
+            sensoryBox.classList.remove('hidden');
+            renderSensoryHelper();
+            showToast('💡 감성 질문 도우미(오감 힌트)를 열었어요!');
+          } else {
+            sensoryBox.classList.add('hidden');
+          }
+        });
+      }
+      if (closeSensoryBtn && sensoryBox) {
+        closeSensoryBtn.addEventListener('click', () => {
+          sensoryBox.classList.add('hidden');
+        });
+      }
+      if (nextSensoryBtn) {
+        nextSensoryBtn.addEventListener('click', () => {
+          currentSenseQuestionIdx++;
+          renderSensoryHelper();
+        });
+      }
+      document.querySelectorAll('.sensory-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentSenseKey = btn.dataset.sense;
+          currentSenseQuestionIdx = 0;
+          document.querySelectorAll('.sensory-tab-btn').forEach(b => {
+            const active = b.dataset.sense === currentSenseKey;
+            b.className = `sensory-tab-btn py-1.5 px-1 rounded-lg text-[11px] transition-all ${
+              active
+                ? 'font-bold bg-white text-terracotta-dark shadow-sm'
+                : 'font-semibold text-ink-muted hover:text-ink'
+            }`;
+          });
+          renderSensoryHelper();
+        });
+      });
+      renderSensoryHelper();
 
       // 상단 가로/세로 글쓰기 구도 전환 버튼
       let isRefVertical = false;
